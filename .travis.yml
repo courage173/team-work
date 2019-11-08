@@ -14,7 +14,9 @@ env:
   - NODE_ENV=test
 
 before_script:
-  - psql -c 'create database teamworkdb;' -U postgres
+   - psql -c "CREATE DATABASE teamworkdb;" -U postgres
+  - psql -c "CREATE USER kola WITH PASSWORD 'pedro123';" -U postgres
+  - "rake db:migrate"
   - npm run build
 script:
   - npm run int:test
