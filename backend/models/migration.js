@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
-import config from '../config/config';
+
 
 dotenv.config();
 
