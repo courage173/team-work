@@ -8,7 +8,7 @@
     "build": "babel ./backend --out-dir ./dist --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc,./UI,./README.md",
     "test": " mocha backend/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
     "start:dev": "nodemon --exec babel-node backend/server.js",
-    "int:test": "npm run migration && mocha baackend/tests/*.js --require @babel/register --reporter spec --timeout 25000"
+    "int:test": "npm run migration && mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000"
   },
   "repository": {
     "type": "git",
