@@ -1,0 +1,34 @@
+import dotenv from 'dotenv';
+import { Pool } from 'pg';
+import config from '../config/config';
+
+dotenv.config();
+const env = process.env.NODE_ENV;
+const pool = new Pool({ connectionString: config.databaseUrl[env] });
+
+pool.on('error', (err) => {
+  console.log(err);
+});
+
+const migrate = pool.query(`DROP TABLE IF EXISTS users CASCADE;
+CREATE TABLE users(
+    id SERIAL NOT NULL PRIMARY KEY,
+	email VARCHAR NOT NULL,
+	first_name VARCHAR NOT NULL,
+	last_name VARCHAR NOT NULL,
+	password VARCHAR NOT NULL,
+	is_admin BOOLEAN NOT NULL DEFAULT false
+);
+INSERT INTO users (
+    id, user_id, email, first_name, last_name, password, is_admin
+    ) VALUES (
+        'bosky@gmail.com',
+        'faith',
+        'osemwengie',
+        'developer',
+        true
+);
+
+`);
+
+export default migrate;
