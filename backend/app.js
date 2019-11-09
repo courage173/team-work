@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './routes/admin'
-require("babel-core/register");
+
 require("babel-polyfill");
 
 const app = express();
