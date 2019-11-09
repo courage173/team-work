@@ -26,7 +26,7 @@ CREATE TABLE users(
 	is_admin BOOLEAN NOT NULL DEFAULT false
 );
 INSERT INTO users (
-    id, user_id, email, first_name, last_name, password, is_admin
+    id, email, first_name, last_name, password, is_admin
     ) VALUES (
         'bosky@gmail.com',
         'faith',
