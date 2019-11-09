@@ -29,7 +29,7 @@ describe("create new user", ()=>{
         last_name: "wole",
         email: "courageosemwengie@gmail.com",
         password: "pedro123",
-        is_admin: true
+        is_admin: false
       })
       .end((err,res)=>{
         console.log(res.body)
