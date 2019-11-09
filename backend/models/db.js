@@ -12,10 +12,11 @@ class Model {
     this.table = table;
 
     this.pool = new Pool({
-        user: 'postgres',
+        user: 'kola',
         host: 'localhost',
         database: 'teamworkdb',
-        port: 5432
+        password: 'pedro123',
+        port: 5432,
     });
 
      this.pool.on('error', (err, client) => {
