@@ -28,6 +28,7 @@ CREATE TABLE users(
 INSERT INTO users (
     id, email, first_name, last_name, password, is_admin
     ) VALUES (
+        15,
         'bosky@gmail.com',
         'faith',
         'osemwengie',
