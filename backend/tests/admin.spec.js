@@ -25,6 +25,7 @@ describe("create new user", ()=>{
       .post("/api/v1/auth/create-user")
       .set("Accept", "application/json")
       .send({
+        id: 5,
         first_name: "kola",
         last_name: "wole",
         email: "courageosemwengie@gmail.com",
