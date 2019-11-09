@@ -24,13 +24,7 @@ describe("create new user", ()=>{
       chai.request(app)
       .post("/api/v1/auth/create-user")
       .set("Accept", "application/json")
-      .send({
-        first_name: "kola",
-        last_name: "wole",
-        email: "courageosemwengie@gmail.com",
-        password: "pedro123",
-        is_admin: true
-      })
+      .send(users[1])
       .end((err,res)=>{
         console.log(res.body)
         expect(res.body).to.be.an('object')
