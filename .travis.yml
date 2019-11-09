@@ -14,12 +14,11 @@ env:
   - NODE_ENV=test
 
 before_script:
-   - psql -c "CREATE DATABASE teamworkdb;" -U postgres
-  - psql -c "CREATE USER kola WITH PASSWORD 'pedro123';" -U postgres
+  - psql -c 'create database wayfarer_test;' -U postgres
+  - psql -c "CREATE USER chuksEmma WITH PASSWORD null;" -U postgres
   - npm run build
 script:
   - npm run int:test
-#after_success:
- # - npm run coveralls
-
+after_success:
+  - npm run coveralls
 
