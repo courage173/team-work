@@ -5,7 +5,7 @@ import { Pool } from 'pg';
 dotenv.config();
 
 const pool = new Pool({ 
-    user: 'kola',
+    user: 'postgres',
     host: 'localhost',
     database: 'teamworkdb',
     password: 'pedro123',
