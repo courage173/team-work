@@ -9,14 +9,9 @@ install:
 services:
   - postgresql
 
-env:
-  global:
-  - NODE_ENV=test
 
 before_script:
-   - psql -c "CREATE DATABASE teamworkdb;" -U postgres
-  - psql -c "CREATE USER kola WITH PASSWORD 'pedro123';" -U postgres
-  - npm run build
+   - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - npm run int:test
 #after_success:
