@@ -9,7 +9,7 @@
     "test": " mocha backend/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
     "start:dev": "nodemon --exec babel-node backend/server.js",
     "int:test": "npm run migration && mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000",
-    "coveralls": "npm run int:test&& nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "npm run int:test&& --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
