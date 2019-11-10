@@ -7,8 +7,7 @@ const users = [
         is_admin: true
       },
     {
-      id: 1,
-      user_id: 1,
+      
       email: 'boths1229@yahoo.com',
       first_name: 'amaka',
       last_name: 'chuks',
@@ -16,13 +15,12 @@ const users = [
       is_admin: true,
     },
     {
-      id: 2,
-      user_id: 2,
-      email: 'boths@yahoo.com',
-      first_name: 'chuks',
-      last_name: 'emma',
+     
+      email: 'kito@gmail.com',
+      first_name: 'sharon',
+      last_name: 'kito',
       password: 'developer',
-      is_admin: true,
+      is_admin: false,
     },
    
   ];

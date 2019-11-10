@@ -24,27 +24,43 @@ describe("create new user", ()=>{
       chai.request(app)
       .post("/api/v1/auth/create-user")
       .set("Accept", "application/json")
-      .send({
-        id: 5,
-        first_name: "kola",
-        last_name: "wole",
-        email: "courageosemwengie@gmail.com",
-        password: "pedro123",
-        is_admin: true
-      })
+      .send(users[2])
       .end((err,res)=>{
         console.log(res.body)
         expect(res.body).to.be.an('object')
         expect(res.body.status).to.equal('success')
         
-        expect(res.body.data.is_admin).to.equal(true);
+        expect(res.body.data.is_admin).to.equal(false);
         expect(res.body.data.token).to.be.a('string');
-        expect(res.body.data.first_name).to.equal('kola');
-        expect(res.body.data.last_name).to.equal('wole');
-        expect(res.body.data.email).to.equal('courageosemwengie@gmail.com');
+        expect(res.body.data.first_name).to.equal('sharon');
+        expect(res.body.data.last_name).to.equal('kito');
+        expect(res.body.data.email).to.equal('kito@gmail.com');
         
         done();
       })
     })
   })
+  describe('POST email already in use api/v1/auth/signup', () => {
+    it('should return user with this email already exist', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send({
+          email: 'bosky@gmail.com',
+          first_name: 'faith',
+          last_name: 'osemwengie',
+          password: 'developer',
+          is_admin: true
+        })
+        .end((err, res) => {
+          
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(409);
+          expect(res.body.message).to.equal('this email is already in use');
+          done();
+        });
+    });
+  });
+
+
 })
