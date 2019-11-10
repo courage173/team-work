@@ -11,6 +11,9 @@
     "int:test": "npm run migration && mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000",
     "coveralls": "npm run int:test&& --reporter=text-lcov | coveralls"
   },
+  "bin": {
+    "coveralls": "./bin/coveralls.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/courage173/team-work.git"
