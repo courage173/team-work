@@ -37,7 +37,7 @@ describe("create new user", ()=>{
         expect(res.body).to.be.an('object')
         expect(res.body.status).to.equal('success')
         
-        expect(res.body.data.is_admin).to.equal(false);
+        expect(res.body.data.is_admin).to.equal(true);
         expect(res.body.data.token).to.be.a('string');
         expect(res.body.data.first_name).to.equal('sharon');
         expect(res.body.data.last_name).to.equal('kito');
