@@ -23,7 +23,11 @@ CREATE TABLE users(
 	first_name VARCHAR NOT NULL,
 	last_name VARCHAR NOT NULL,
 	password VARCHAR NOT NULL,
-	is_admin BOOLEAN NOT NULL DEFAULT false
+    is_admin BOOLEAN NOT NULL DEFAULT false,
+    department VARCHAR,
+    jobroles VARCHAR,
+    address VARCHAR,
+    gender VARCHAR
 );
 INSERT INTO users (
     id, email, first_name, last_name, password, is_admin
