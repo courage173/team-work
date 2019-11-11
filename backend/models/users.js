@@ -22,6 +22,29 @@ const users = [
       password: 'developer',
       is_admin: false,
     },
+    {
+      id: 6,
+      email: 'boths',
+      first_name: 'chuks',
+      last_name: 'emma',
+      password: 'developer',
+      is_admin: false,
+    },
+    {
+      id: 4,
+      email: 'boths@yahoo.com',
+      first_name: 'chuks',
+      last_name: 'emma',
+      password: 'dev',
+      is_admin: false,
+    },
+    {
+      first_name: 'amaka',
+      last_name: 'chuks',
+      email: 'boths1229@yahoo.com',
+      password: 'amaka000',
+      is_admin: true,
+    },
    
   ];
   

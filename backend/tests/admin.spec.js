@@ -70,5 +70,41 @@ describe("create new user", ()=>{
     });
   });
 
+  describe('POST should return email is invalid api/v1/auth/create-user', () => {
+    it('should return error when email is invalid', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send(users[3])
+        .end((err, res) => {
+          const {
+            email
+          } = res.body.errors;
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(email[0]).to.equal('the email format is invalid');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return password length is less than 6 or invalid api/v1/auth/create-user', () => {
+    it('should return error when password length is less than 6 or invalid', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send(users[4])
+        .end((err, res) => {
+          const {
+            password
+          } = res.body.errors;
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(password[0]).to.equal('Min password limit is 6');
+          done();
+        });
+    });
+  });
+
 
 })
