@@ -14,7 +14,7 @@ class User {
   static async signUp(req, res) {
     try {
         const {
-          email, first_name, last_name,is_admin
+          email, first_name, last_name,is_admin, jobroles,department,gender,address
         } = req.body;
   
         let { password } = req.body;
@@ -23,8 +23,8 @@ class User {
         });
         password = pass.hashPassword(password);
         const rows = await User.model().insert(
-          'email, first_name, last_name, password, is_admin',
-          `'${email}', '${first_name}', '${last_name}', '${password}', ${is_admin}`
+          'email, first_name, last_name, password, is_admin, jobroles, department, gender, address',
+          `'${email}', '${first_name}', '${last_name}', '${password}', '${is_admin}', '${jobroles}', '${department}', '${gender}', '${address}'`
         );
   
         return res.status(201).json({
@@ -35,7 +35,9 @@ class User {
             token,
             first_name: rows[0].first_name,
             last_name: rows[0].last_name,
-            email: rows[0].email
+            email: rows[0].email,
+            department: rows[0].department,
+            jobroles: rows[0].jobroles
           }
         });
       } catch (e) {

@@ -7,8 +7,7 @@ const users = [
         is_admin: true
       },
     {
-      id: 1,
-      user_id: 1,
+      
       email: 'boths1229@yahoo.com',
       first_name: 'amaka',
       last_name: 'chuks',
@@ -16,12 +15,34 @@ const users = [
       is_admin: true,
     },
     {
-      id: 2,
-      user_id: 2,
-      email: 'boths@yahoo.com',
+     
+      email: 'kito@gmail.com',
+      first_name: 'sharon',
+      last_name: 'kito',
+      password: 'developer',
+      is_admin: false,
+    },
+    {
+      id: 6,
+      email: 'boths',
       first_name: 'chuks',
       last_name: 'emma',
       password: 'developer',
+      is_admin: false,
+    },
+    {
+      id: 4,
+      email: 'boths@yahoo.com',
+      first_name: 'chuks',
+      last_name: 'emma',
+      password: 'dev',
+      is_admin: false,
+    },
+    {
+      first_name: 'amaka',
+      last_name: 'chuks',
+      email: 'boths1229@yahoo.com',
+      password: 'amaka000',
       is_admin: true,
     },
    

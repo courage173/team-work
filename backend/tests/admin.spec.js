@@ -25,7 +25,7 @@ describe("create new user", ()=>{
       .post("/api/v1/auth/create-user")
       .set("Accept", "application/json")
       .send({
-        id: 5,
+        id: 2,
         first_name: "kola",
         last_name: "wole",
         email: "courageosemwengie@gmail.com",
@@ -47,4 +47,64 @@ describe("create new user", ()=>{
       })
     })
   })
+  describe('POST email already in use api/v1/auth/signup', () => {
+    it('should return user with this email already exist', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send({
+          id: 15,
+          email: 'bosky@gmail.com',
+          first_name: 'faith',
+          last_name: 'osemwengie',
+          password: 'developer',
+          is_admin: true
+        })
+        .end((err, res) => {
+          
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(409);
+          expect(res.body.message).to.equal('this email is already in use');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return email is invalid api/v1/auth/create-user', () => {
+    it('should return error when email is invalid', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send(users[3])
+        .end((err, res) => {
+          const {
+            email
+          } = res.body.errors;
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(email[0]).to.equal('the email format is invalid');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return password length is less than 6 or invalid api/v1/auth/create-user', () => {
+    it('should return error when password length is less than 6 or invalid', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/create-user')
+        .set('Accept', 'application/json')
+        .send(users[4])
+        .end((err, res) => {
+          const {
+            password
+          } = res.body.errors;
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(password[0]).to.equal('Min password limit is 6');
+          done();
+        });
+    });
+  });
+
+
 })
