@@ -45,6 +45,26 @@ const users = [
       password: 'amaka000',
       is_admin: true,
     },
+    {
+      email: 'courageosemwengie@gmail.com',
+      password: 'pedro123'
+    },
+    {
+      email: '',
+      password: 'pedro123'
+    },
+    {
+      email: 'boths104',
+      password: 'developer'
+    },
+    {
+      email: 'boths104@example.com',
+      password: ''
+    },
+    {
+      email: 'boths104@example.com',
+      password: 'dev'
+    }
    
   ];
   
