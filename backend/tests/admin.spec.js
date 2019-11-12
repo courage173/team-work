@@ -10,7 +10,7 @@ chai.use(chaiHttp)
 const { expect } = chai;
 
 
-describe("create new user", ()=>{
+describe("create-user and Login Testing", ()=>{
   before((done) => {
     const dump = 'psql -h localhost -d testDb -U postgres -f backend/tests/testDb.sql';
     exec(dump, (err) => {
@@ -105,6 +105,88 @@ describe("create new user", ()=>{
         });
     });
   });
+  describe("return Signing Successfull",()=>{
+    it("should return login sucessful",(done)=>{
+      chai.request(app)
+      .post("/api/v1/auth/signin")
+      .set('Accept', 'application/json')
+      .send({
+        email: "courageosemwengie@gmail.com",
+        password: "pedro123"})
+      .end((err,res)=>{
+        expect(res.body).to.be.an('object');
+          expect(res.body.status).to.equal('success');
+          expect(res.body.data.user_id).to.equal(1);
+          expect(res.body.data.token).to.be.a('string');
+          expect(res.body.data.first_name).to.equal('kola');
+          expect(res.body.data.last_name).to.equal('wole');
+          expect(res.body.data.email).to.equal('courageosemwengie@gmail.com')
+          done()
+      })
+    })
+  })
+
+
+  describe('POST should return email field not filled api/v1/auth/signin', () => {
+    it('should return error when email field is not filled', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(users[8])
+        .end((err, res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(res.body.message).to.equal('Invalid Credentials');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return email format incorrect api/v1/auth/signin', () => {
+    it('should return error when email format is incorrect', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(users[9])
+        .end((err, res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(res.body.message).to.equal('Invalid Credentials');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return password field not filled api/v1/auth/signin', () => {
+    it('should return error when password field is not filled', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(users[10])
+        .end((err, res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(res.body.message).to.equal('Invalid Credentials');
+          done();
+        });
+    });
+  });
+
+  describe('POST should return password incorrect api/v1/auth/signin', () => {
+    it('should return error when password is incorrect', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .send(users[11])
+        .end((err, res) => {
+          expect(res.body).to.be.an('object');
+          expect(res.statusCode).to.equal(400);
+          expect(res.body.message).to.equal('Invalid Credentials');
+          done();
+        });
+    });
+  });
+
 
 
 })
