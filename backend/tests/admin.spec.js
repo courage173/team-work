@@ -120,7 +120,7 @@ describe("create-user and Login Testing", ()=>{
           expect(res.body.data.token).to.be.a('string');
           expect(res.body.data.first_name).to.equal('kola');
           expect(res.body.data.last_name).to.equal('wole');
-          expect(res.body.data.email).to.equal('bosky@gmail.com')
+          expect(res.body.data.email).to.equal('courageosemwengie@gmail.com')
           done()
       })
     })
