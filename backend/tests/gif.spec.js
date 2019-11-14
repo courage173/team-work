@@ -32,7 +32,10 @@ describe("testing for gifs uploads", ()=>{
             }
             
             
-            token = res.body.data.token;
+            token = res.body.data.token
+            console.log(token)
+            
+            
             
     
             done();
@@ -42,14 +45,14 @@ describe("testing for gifs uploads", ()=>{
         it("it should return successfull",(done)=>{
           chai.request(app)
           .post('/api/v1/auth/gifs')
-          .set("Authorization", token)
+          .set("Authorization", "Bearer " + token)
           .send({
               title: "new pic",
               flagged: true,
               
           })
           .end((err,res)=>{
-            console.log(res.user)
+            console.log(err)
             console.log(res.body.status)
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');

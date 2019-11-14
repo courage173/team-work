@@ -7,22 +7,25 @@ export const createToken = (data) => {
 };
 
 export const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
-  console
-  
+  const token = req.headers.authorization.split(' ')[1]
   console.log(token)
   
   
-  if (token == null) {
+  if (!token) {
     return res.status(403).json({
       status: 'error',
       message: 'No token found'
     });
   }
-  else{    
-    jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVodW5zQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsInVzZXJJZCI6OCwiaWF0IjoxNTczNzIyNjQxLCJleHAiOjE1NzM3MjYyNDF9.Pew9r__o0l2TfDLgjOpZVglsrlpFsdHS6g9vAA2rzTU", 'secret', function (err, decoded) {
-      console.log(err)
-      console.log(decoded)
-    })
-  }  
+  return jwt.verify(token, 'secret', (error, user) => {
+    if (error) {
+      console.log(user)
+      return res.status(401).json({
+        status: 'error',
+        message: 'token is invalid'
+      });
+    }
+    req.user = user;
+    next();
+  });
 };
