@@ -3,6 +3,7 @@ import Model from '../models/db'
 import cloudinary from 'cloudinary'
 import generateId from '../middlewares/identity'
 
+
 cloudinary.config({ 
     cloud_name: 'dm4gkystq', 
     api_key: '813183814586897', 
@@ -18,12 +19,15 @@ class Gifs {
 
     static async uploadGif(req,res){
         try{
-            
+          const file = req.files.image;
+          console.log(file)
             const {title, flagged} =req.body;
+            console.log(title)
+            
             if(!title){
                 res.status(400).json({message: "title required"})
             }
-            const gifcloud = await cloudinary.v2.uploader.upload("../pic.png");
+            const gifcloud = await cloudinary.v2.uploader.upload(file.tempFilePath);
             const {secure_url: secureUrl, created_at: createdOn, public_id: publicId } = gifcloud
 
             

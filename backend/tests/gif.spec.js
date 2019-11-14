@@ -22,8 +22,8 @@ describe("testing for gifs uploads", ()=>{
           .post('/api/v1/auth/signin')
           .set('Accept', 'application/json')
           .send({
-            email: "courageosemwengie@gmail.com",
-            password: "pedro123"
+            email: "bosky@gmail.com",
+            password: "developer"
           })
           .end((err,res)=>{
             if (err) {
@@ -46,11 +46,12 @@ describe("testing for gifs uploads", ()=>{
           chai.request(app)
           .post('/api/v1/auth/gifs')
           .set("Authorization", "Bearer " + token)
-          .send({
+          .field({
               title: "new pic",
               flagged: true,
               
           })
+          .attach('image', './backend/pic.png')
           .end((err,res)=>{
             console.log(err)
             console.log(res.body.status)

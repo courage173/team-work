@@ -7,6 +7,11 @@ import User from '../controllers/admin'
 import Gifs from '../controllers/gifs';
 import { verifyToken } from '../helpers/token';
 import auth from '../middlewares/auth'
+const fileUpload = require("express-fileupload");
+
+
+
+
 
 
 const {
@@ -14,6 +19,12 @@ const {
   } = User
 
 const {uploadGif} = Gifs
+
+router.use(
+  fileUpload({
+      useTempFiles: true
+  })
+);
 
 
 
