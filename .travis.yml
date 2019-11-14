@@ -22,4 +22,6 @@ script:
   - npm run int:test
 after_success:
   - npm run coveralls
+notifications:
+  email: false
 

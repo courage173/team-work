@@ -50,6 +50,7 @@ CREATE TABLE gif (
     created_by varchar NOT NULL,
     public_id varchar NOT NULL,
 	PRIMARY KEY (gif_id)
+    )
 
 `);
 
