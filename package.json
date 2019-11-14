@@ -28,6 +28,7 @@
     "bcrypt": "^3.0.6",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cloudinary": "^1.17.0",
     "cookie": "^0.4.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
