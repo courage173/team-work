@@ -39,9 +39,7 @@ INSERT INTO users (
         'developer',
         true
 );
-
-`);
-const migrate = pool.query(`DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS gif CASCADE
 CREATE TABLE gif(
     gif_id INTEGER NOT NULL PRIMARY KEY,
 	gif_url VARCHAR NOT NULL,
@@ -52,8 +50,8 @@ CREATE TABLE gif(
     created_on TIMESTAMP WITH TIME ZONE NOT NULL,
 );
 
-
 `);
+
 
 
 export default migrate;
