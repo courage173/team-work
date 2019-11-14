@@ -11,7 +11,7 @@ const { expect } = chai;
 let token;
 
 describe("testing for gifs uploads", ()=>{
-    before((done) => {
+    beforeEach((done) => {
       done()
       
     });
@@ -22,8 +22,8 @@ describe("testing for gifs uploads", ()=>{
           .post('/api/v1/auth/signin')
           .set('Accept', 'application/json')
           .send({
-            email: "bosky@gmail.com",
-            password: "developer"
+            email: "courageosemwengie@gmail.com",
+            password: "pedro123"
           })
           .end((err,res)=>{
             if (err) {
