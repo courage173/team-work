@@ -41,5 +41,19 @@ INSERT INTO users (
 );
 
 `);
+const migrate = pool.query(`DROP TABLE IF EXISTS users CASCADE;
+CREATE TABLE gif(
+    gif_id INTEGER NOT NULL PRIMARY KEY,
+	gif_url VARCHAR NOT NULL,
+	flagged BOOLEAN NOT NULL DEFAULT false,
+	title VARCHAR NOT NULL,
+	created_by VARCHAR NOT NULL,
+    public_id VARCHAR NOT NULL,
+    created_on TIMESTAMP WITH TIME ZONE NOT NULL,
+);
+
+
+`);
+
 
 export default migrate;
