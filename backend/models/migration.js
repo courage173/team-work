@@ -40,6 +40,17 @@ INSERT INTO users (
         true
 );
 
+DROP TABLE IF EXISTS gif CASCADE;
+CREATE TABLE gif (
+	gif_id serial NOT NULL,
+	title varchar NOT NULL,
+	gif_url varchar NOT NULL,
+	created_on timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    flagged BOOLEAN NOT NULL,
+    created_by varchar NOT NULL,
+    public_id varchar NOT NULL,
+	PRIMARY KEY (gif_id)
+
 `);
 
 export default migrate;
