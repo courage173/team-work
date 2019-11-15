@@ -9,8 +9,10 @@ chai.use(chaiHttp)
 const { expect } = chai;
 
 let token;
+let id;
+const idd = `/api/v1/auth/delete-gifs/${id}`.toString()
 
-describe("testing for gifs uploads", ()=>{
+describe("testing for gifs Post/Delete/Get", ()=>{
     beforeEach((done) => {
       done()
       
@@ -28,7 +30,7 @@ describe("testing for gifs uploads", ()=>{
           .end((err,res)=>{
             if (err) {
 
-              done(err)
+              done();
             }
             
             
@@ -57,11 +59,28 @@ describe("testing for gifs uploads", ()=>{
             console.log(res.body.status)
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
-              expect(res.body.data.gif).to.be.a('string')
+              expect(res.body.data.gif_url).to.be.a('string')
               expect(res.body.data.title).to.be.a('string');
+              id = res.body.data.gif_id
+              
               done();
           })
         })
+        
+        describe("to delete a gif '/api/v1/auth/delete-gifs/${id}",()=>{
+          it("should delete gif successfully", (done)=>{
+            chai.request(app)
+            .delete(`/api/v1/auth/delete-gifs/${id}`)
+            .set("Authorization", "Bearer " + token)
+            .end((err,res)=>{
+              expect(res.body.status).to.equal('success')
+              expect(res.body.data.message).to.be.a('string')
+              
+              done()
+            })
+          })
+        })
+
       })
       
     

@@ -18,7 +18,7 @@ const {
     signUp, signIn
   } = User
 
-const {uploadGif} = Gifs
+const {uploadGif, deleteGifs} = Gifs
 
 router.use(
   fileUpload({
@@ -33,6 +33,7 @@ router.post('/signin',validateSigninCredentials, signIn)
 
 //uploading gifs
 router.post('/gifs',verifyToken, uploadGif)
+router.delete('/delete-gifs/:gif_id',verifyToken, deleteGifs)
 
 
 

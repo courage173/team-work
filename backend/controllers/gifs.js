@@ -42,9 +42,9 @@ class Gifs {
           return res.status(201).json({
             status: 'success',
             data: {
-              gif_id: identity,
-              title: title,
-              gif: secureUrl
+              gif_id: rows[0].gif_id,
+              title: rows[0].title,
+              gif_url: rows[0].gif_url
             }
               
           });
@@ -56,6 +56,52 @@ class Gifs {
         };
 
     }
+    static async deleteGifs(req,res){
+      try{
+        const {gif_id} = req.params;
+        
+      const row = await Gifs.model().select('*', 'gif_id=$1', [gif_id]);
+      
+
+      if(!row[0]){
+        return res.status(404).json({
+          status: "error",
+          data: {
+            message: "Gif with required id not found"
+          }
+        })
+      }
+
+      const email = req.user.email
+      const user_email = row[0].created_by
+
+      if(user_email !== email){
+        return res.status(401).json({
+          status: "error",
+          data: {
+            message: "you dont have permission to delete required specified gif"
+          }
+        })
+      }
+
+      await cloudinary.v2.uploader.destroy(row[0].public_id);
+
+       await Gifs.model().delete('gif_id=$1', [gif_id]);
+      return res.status(200).json({
+        status: "success",
+        data: {
+          message: "deleted successfully"
+        }
+      })
+
+      
+    } catch (e) {
+      return res.status(500).json({
+        error: e.message,
+        e
+      })
+    };
+}
 }  
 
 
