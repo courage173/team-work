@@ -1,4 +1,4 @@
-import { createToken } from '../helpers/token';
+import { createToken,verifyToken } from '../helpers/token';
 import Model from '../models/db'
 
 
@@ -20,7 +20,7 @@ class User {
   
         let { password } = req.body;
         const token = createToken({
-          email, first_name, last_name,is_admin
+          email,is_admin,is_admin
         });
         password = pass.hashPassword(password);
         const rows = await User.model().insert(
@@ -58,7 +58,8 @@ class User {
           const userId = registered[0].id;
           const firstName = registered[0].first_name;
           const lastName = registered[0].last_name;
-          const token = createToken({ email, password, isAdmin, userId, firstName, lastName });
+          const token = createToken({ email, isAdmin, userId });
+          
           return res.status(200).json({
             status: 'success',
             data: {
@@ -68,8 +69,11 @@ class User {
               first_name: registered[0].first_name,
               last_name: registered[0].last_name,
               email: registered[0].email
+              
             }
+            
           });
+          
         } return res.status(401).json({
           status: 'error',
           message: 'invalid email or password'
