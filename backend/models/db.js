@@ -38,6 +38,19 @@ class Model {
     }
   }
 
+  async selectOrder(columns, clause, values) {
+    try {
+      
+      
+       const query = `SELECT ${columns} FROM ${this.table} ORDER BY created_on DESC `;
+      
+      const { rows } = await this.pool.query(query, values);
+      return rows;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async insert(columns, selector, values) {
     const query = `INSERT INTO ${this.table} (${columns}) VALUES (${selector}) returning *`;
     try {
