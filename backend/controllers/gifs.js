@@ -42,9 +42,11 @@ class Gifs {
           return res.status(201).json({
             status: 'success',
             data: {
-              gif_id: rows[0].gif_id,
+              gifId: rows[0].gif_id,
+              message: "gif image succesfully uploaded",
+              createdOn: rows[0].created_On,
               title: rows[0].title,
-              gif_url: rows[0].gif_url
+              image: rows[0].gif_url
             }
               
           });
@@ -90,7 +92,7 @@ class Gifs {
       return res.status(200).json({
         status: "success",
         data: {
-          message: "deleted successfully"
+          message: "gif post successfully deleted"
         }
       })
 
@@ -102,6 +104,51 @@ class Gifs {
       })
     };
 }
+
+static async getAllGifs(req,res){
+  try{
+    const row = await Gifs.model().selectOrder('*','created_on')
+    
+    res.status(200).json({
+      status: "success",
+      data: row
+    })
+
+  } catch(e){
+    return res.status(500).json({
+      error: e.message,
+      e
+    })
+
+  }
+}
+static async getOneGif(req,res){
+  try{
+    const {id} = req.params;
+        
+    const row = await Gifs.model().select('*', 'gif_id=$1', [id]);
+    if(!row[0]){
+      return res.status(400).json({
+        status: "error",
+        error: "cannot find gif of required id"
+
+      })
+    }
+    
+    return res.status(200).json({
+      status: "success",
+      data: row[0]
+    })
+
+  } catch(e){
+    return res.status(500).json({
+      error: e.message,
+      e
+    })
+
+  }
+}
+
 }  
 
 

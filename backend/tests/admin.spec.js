@@ -19,10 +19,10 @@ describe("create-user and Login Testing", ()=>{
   });
   
 
-  describe("Post successfull api/v1/auth/create-user",()=>{
+  describe("Post successfull/v1/auth/create-user",()=>{
     it("return signup successfull", (done)=>{
       chai.request(app)
-      .post("/api/v1/auth/create-user")
+      .post("/v1/auth/create-user")
       .set("Accept", "application/json")
       .send({
         id: 2,
@@ -47,10 +47,10 @@ describe("create-user and Login Testing", ()=>{
       })
     })
   })
-  describe('POST email already in use api/v1/auth/signup', () => {
+  describe('POST email already in use/v1/auth/signup', () => {
     it('should return user with this email already exist', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/create-user')
+        .post('/v1/auth/create-user')
         .set('Accept', 'application/json')
         .send({
           id: 15,
@@ -70,10 +70,10 @@ describe("create-user and Login Testing", ()=>{
     });
   });
 
-  describe('POST should return email is invalid api/v1/auth/create-user', () => {
+  describe('POST should return email is invalid/v1/auth/create-user', () => {
     it('should return error when email is invalid', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/create-user')
+        .post('/v1/auth/create-user')
         .set('Accept', 'application/json')
         .send(users[3])
         .end((err, res) => {
@@ -88,10 +88,10 @@ describe("create-user and Login Testing", ()=>{
     });
   });
 
-  describe('POST should return password length is less than 6 or invalid api/v1/auth/create-user', () => {
+  describe('POST should return password length is less than 6 or invalid/v1/auth/create-user', () => {
     it('should return error when password length is less than 6 or invalid', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/create-user')
+        .post('/v1/auth/create-user')
         .set('Accept', 'application/json')
         .send(users[4])
         .end((err, res) => {
@@ -108,7 +108,7 @@ describe("create-user and Login Testing", ()=>{
   describe("return Signing Successfull",()=>{
     it("should return login sucessful",(done)=>{
       chai.request(app)
-      .post("/api/v1/auth/signin")
+      .post("/v1/auth/signin")
       .set('Accept', 'application/json')
       .send({
         email: "courageosemwengie@gmail.com",
@@ -127,10 +127,10 @@ describe("create-user and Login Testing", ()=>{
   })
 
 
-  describe('POST should return email field not filled api/v1/auth/signin', () => {
+  describe('POST should return email field not filled /v1/auth/signin', () => {
     it('should return error when email field is not filled', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(users[8])
         .end((err, res) => {
@@ -142,10 +142,10 @@ describe("create-user and Login Testing", ()=>{
     });
   });
 
-  describe('POST should return email format incorrect api/v1/auth/signin', () => {
+  describe('POST should return email format incorrect/v1/auth/signin', () => {
     it('should return error when email format is incorrect', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(users[9])
         .end((err, res) => {
@@ -157,10 +157,10 @@ describe("create-user and Login Testing", ()=>{
     });
   });
 
-  describe('POST should return password field not filled api/v1/auth/signin', () => {
+  describe('POST should return password field not filled/v1/auth/signin', () => {
     it('should return error when password field is not filled', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(users[10])
         .end((err, res) => {
@@ -172,10 +172,10 @@ describe("create-user and Login Testing", ()=>{
     });
   });
 
-  describe('POST should return password incorrect api/v1/auth/signin', () => {
+  describe('POST should return password incorrect/v1/auth/signin', () => {
     it('should return error when password is incorrect', (done) => {
       chai.request(app)
-        .post('/api/v1/auth/signin')
+        .post('/v1/auth/signin')
         .set('Accept', 'application/json')
         .send(users[11])
         .end((err, res) => {
