@@ -55,7 +55,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             console.log(res.body.status)
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
-              expect(res.body.data.image).to.be.a('string')
+              expect(res.body.data.imageUrl).to.be.a('string')
               expect(res.body.data.title).to.be.a('string');
               id = res.body.data.gifId
               console.log(res.body.data.title)
