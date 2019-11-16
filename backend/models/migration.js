@@ -49,8 +49,12 @@ CREATE TABLE gif (
     flagged BOOLEAN NOT NULL,
     created_by varchar NOT NULL,
     public_id varchar NOT NULL,
+    user_id serial NOT NULL,
 	PRIMARY KEY (gif_id)
     )
+ALTER TABLE article
+ADD FOREIGN KEY (user_id) 
+REFERENCES users (id)
 
 `);
 
