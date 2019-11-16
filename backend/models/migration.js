@@ -50,11 +50,11 @@ CREATE TABLE gif (
     created_by varchar NOT NULL,
     public_id varchar NOT NULL,
     user_id serial NOT NULL,
-	PRIMARY KEY (gif_id)
+    PRIMARY KEY (gif_id),
+    FOREIGN KEY (user_id) 
+    REFERENCES users (id)
     )
-ALTER TABLE article
-ADD FOREIGN KEY (user_id) 
-REFERENCES users (id)
+
 
 `);
 
