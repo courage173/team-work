@@ -32,11 +32,12 @@ class Gifs {
 
             
             const identity = generateId(120000);
-            console.log(req.user.email)
+            const userId = req.user.userId
             const createdBy = req.user.email;
+            
             const rows = await Gifs.model().insert(
-                'gif_id,title,flagged, public_id,gif_url,created_by,created_on',
-                `'${identity}', '${title}', '${flagged}', '${publicId}','${secureUrl}','${createdBy}', '${createdOn}'`
+                'gif_id,title,flagged, public_id,gif_url,created_by,created_on,user_id',
+                `'${identity}', '${title}', '${flagged}', '${publicId}','${secureUrl}','${createdBy}', '${createdOn}', '${userId}'`
           );
     
           return res.status(201).json({
@@ -44,9 +45,9 @@ class Gifs {
             data: {
               gifId: rows[0].gif_id,
               message: "gif image succesfully uploaded",
-              createdOn: rows[0].created_On,
+              createdOn: rows[0].created_on,
               title: rows[0].title,
-              image: rows[0].gif_url
+              imageUrl: rows[0].gif_url
             }
               
           });
