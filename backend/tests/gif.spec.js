@@ -31,7 +31,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             
             
             token = res.body.data.token
-            console.log(token)
+            
             
             
             
@@ -51,8 +51,6 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
           .attach('image', './backend/pic.png')
           .end((err,res)=>{
-            console.log(err)
-            console.log(res.body.status)
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
               expect(res.body.data.imageUrl).to.be.a('string')

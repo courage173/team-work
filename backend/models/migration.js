@@ -66,7 +66,7 @@ CREATE TABLE gif (
         user_id serial NOT NULL,
         PRIMARY KEY (comment_id),
         FOREIGN KEY (user_id) 
-        REFERENCES users (user_id)
+        REFERENCES users (id)
         )
 
 
