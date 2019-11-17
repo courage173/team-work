@@ -53,7 +53,21 @@ CREATE TABLE gif (
     PRIMARY KEY (gif_id),
     FOREIGN KEY (user_id) 
     REFERENCES users (id)
-    )
+    );
+
+    DROP TABLE IF EXISTS gif CASCADE;
+    CREATE TABLE gif (
+        gif_id serial NOT NULL,
+        comment_id serial NOT NULL,
+        comment varchar NOT NULL,        
+        created_on timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        flagged BOOLEAN NOT NULL,
+        created_by varchar NOT NULL,
+        user_id serial NOT NULL,
+        PRIMARY KEY (comment_id),
+        FOREIGN KEY (gif_id) 
+        REFERENCES gif (gif_id)
+        )
 
 
 `);
