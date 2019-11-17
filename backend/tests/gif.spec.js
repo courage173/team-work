@@ -114,11 +114,11 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                   flagged: false
               })
               .end((err,res)=>{
-                  
-                  expect(res.body).to.be.an('object');
-                  expect(res.body.status).to.equal('success');
-                  expect(res.body.data.comment).to.be.a('string')
-                  done()
+                console.log(res)                  
+                expect(res.body).to.be.an('object');
+                expect(res.body.status).to.equal('success');
+                expect(res.body.data.comment).to.be.a('string')
+                done()
               })
           })
       })
