@@ -59,12 +59,14 @@ CREATE TABLE gif (
     CREATE TABLE gif_comment (
         gif_id INTEGER NOT NULL,
         comment_id serial NOT NULL,
-        comment varchar NOT NULL,        
+        comments varchar NOT NULL,        
         created_on timestamp with time zone NOT NULL,
         flagged BOOLEAN NOT NULL,
         created_by varchar NOT NULL,
         user_id INTEGER NOT NULL,
-        PRIMARY KEY (comment_id)
+        PRIMARY KEY (comment_id),
+        FOREIGN KEY (user_id) 
+        REFERENCES users (id)
         )
 
 
