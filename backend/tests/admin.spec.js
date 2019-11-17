@@ -33,16 +33,13 @@ describe("create-user and Login Testing", ()=>{
         is_admin: true
       })
       .end((err,res)=>{
-        console.log(res.body)
         expect(res.body).to.be.an('object')
         expect(res.body.status).to.equal('success')
-        
         expect(res.body.data.is_admin).to.equal(true);
         expect(res.body.data.token).to.be.a('string');
         expect(res.body.data.first_name).to.equal('kola');
         expect(res.body.data.last_name).to.equal('wole');
         expect(res.body.data.email).to.equal('courageosemwengie@gmail.com');
-        
         done();
       })
     })
