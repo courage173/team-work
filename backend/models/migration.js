@@ -55,8 +55,8 @@ CREATE TABLE gif (
     REFERENCES users (id)
     );
 
-    DROP TABLE IF EXISTS gif CASCADE;
-    CREATE TABLE gif (
+    DROP TABLE IF EXISTS gif_comment CASCADE;
+    CREATE TABLE gif_comment (
         gif_id serial NOT NULL,
         comment_id serial NOT NULL,
         comment varchar NOT NULL,        
@@ -65,8 +65,8 @@ CREATE TABLE gif (
         created_by varchar NOT NULL,
         user_id serial NOT NULL,
         PRIMARY KEY (comment_id),
-        FOREIGN KEY (gif_id) 
-        REFERENCES gif (gif_id)
+        FOREIGN KEY (user_id) 
+        REFERENCES users (user_id)
         )
 
 

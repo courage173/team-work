@@ -116,7 +116,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                   flagged: false
               })
               .end((err,res)=>{
-                  console.log(res)
+                  
                   expect(res.body).to.be.an('object');
                   expect(res.body.status).to.equal('success');
                   expect(res.body.data.comment).to.be.a('string')
@@ -125,7 +125,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
       })
       describe("Post should return invalid credentials v1/gifs/<:gifId>/comment",()=>{
-        it("should return return invalid credentials when no comment entered",(done)=>{
+        it("should return return invalid credentials when no comment",(done)=>{
             chai.request(app)
             .post(`/v1/gifs/${id}/comment`)
             .set("Accept", "application/json")
@@ -134,7 +134,6 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                 flagged: false
             })
             .end((err,res)=>{
-                
                 expect(res.body).to.be.an('object');
                 expect(res.body.message).to.equal('Invalid Credentials');
                 expect(res.body.errors.comment).to.be.an('array')
