@@ -33,7 +33,6 @@ describe("create-user and Login Testing", ()=>{
         is_admin: true
       })
       .end((err,res)=>{
-        console.log(res.body)
         expect(res.body).to.be.an('object')
         expect(res.body.status).to.equal('success')
         expect(res.body.data.is_admin).to.equal(true);

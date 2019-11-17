@@ -64,9 +64,7 @@ CREATE TABLE gif (
         flagged BOOLEAN NOT NULL,
         created_by varchar NOT NULL,
         user_id INTEGER NOT NULL,
-        PRIMARY KEY (comment_id),
-        FOREIGN KEY (user_id) 
-        REFERENCES users (id)
+        PRIMARY KEY (comment_id)
         )
 
 
