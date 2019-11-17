@@ -36,5 +36,13 @@ export const validateSigninCredentials = (req, res, next) => {
   return validateCredentials(req, res, next, rules);
 };
 
+export const validateComments = (req, res, next) => {
+  const rules = {
+    comment: 'required|max:150'
+  };
+  return validateCredentials(req, res, next, rules);
+};
+
+
 
 

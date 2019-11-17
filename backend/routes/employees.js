@@ -1,14 +1,18 @@
 import express from 'express';
 import isAdmin from '../middlewares/isAdmin';
 const router = express.Router();
+import {validateComments} from '../middlewares/validatCredentials'
 
 import Gifs from '../controllers/gifs';
 import { verifyToken } from '../helpers/token';
+
+import GifComment from '../controllers/gifComment'
 
 const fileUpload = require("express-fileupload");
 
 
 const {uploadGif, deleteGifs,getAllGifs,getOneGif} = Gifs
+const {createGifComment} = GifComment
 
 router.use(
   fileUpload({
@@ -25,6 +29,9 @@ router.post('/gifs',verifyToken, uploadGif)
 router.delete('/delete-gifs/:gif_id',verifyToken, deleteGifs)
 router.get('/all-gifs', getAllGifs)
 router.get('/:id', getOneGif)
+
+//gif comments
+router.post('/:gifId/comment',verifyToken,validateComments,createGifComment)
 
 
 

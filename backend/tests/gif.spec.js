@@ -100,6 +100,48 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             })
           })
         })
+
+        //this are test for Gif comments
+
+        //posting a comment on a gif
+
+        describe("Post should return successful v1/gifs/<:gifId>/comment",()=>{
+          it("should return return post successfull",(done)=>{
+              chai.request(app)
+              .post(`/v1/gifs/${id}/comment`)
+              .set("Accept", "application/json")
+              .set("Authorization", "Bearer " + token)
+              .send({
+                  comment: "so who is winning the election",
+                  flagged: false
+              })
+              .end((err,res)=>{
+                  console.log(res)
+                  expect(res.body).to.be.an('object');
+                  expect(res.body.status).to.equal('success');
+                  expect(res.body.data.comment).to.be.a('string')
+                  done()
+              })
+          })
+      })
+      describe("Post should return invalid credentials v1/gifs/<:gifId>/comment",()=>{
+        it("should return return invalid credentials when no comment entered",(done)=>{
+            chai.request(app)
+            .post(`/v1/gifs/${id}/comment`)
+            .set("Accept", "application/json")
+            .set("Authorization", "Bearer " + token)
+            .send({
+                flagged: false
+            })
+            .end((err,res)=>{
+                
+                expect(res.body).to.be.an('object');
+                expect(res.body.message).to.equal('Invalid Credentials');
+                expect(res.body.errors.comment).to.be.an('array')
+                done()
+            })
+        })
+    })
         
         //delete gif
         
