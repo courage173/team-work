@@ -178,7 +178,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             chai.request(app)
             .post('/v1/category')
             .set('Accept', 'application/json')
-            .send({categoryName: "Music"})
+            .send({categoryName: "Clothe123"})
             .end((err,res)=>{
               expect(res.body.error).to.equal('error')
               expect(res.body.message).to.be.a('string')
