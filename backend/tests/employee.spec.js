@@ -244,18 +244,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
         })
 
-        describe('to delete a category /v1/category/:categoryId',()=>{
-          it('should succesfully delete category',(done)=>{
-            chai.request(app)
-            .delete(`/v1/category/${catId}`)
-            .set('Accept', 'application/json')
-            .end((err,res)=>{
-              expect(res.body.status).to.equal('success')
-              expect(res.body.message).to.equal('category successfully deleted')
-              done()
-            })
-          })
-        })
+        
 
 
 
@@ -271,7 +260,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               title: "Love",
               article: "I love Faith Aigbokhan",
               flagged: false,
-              categoryId: 71907431
+              categoryId: catId
             })
             .end((err,res)=>{
               expect(res.body).to.be.an("object")
@@ -319,6 +308,21 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               expect(res.body).to.be.an("object")
               expect(res.body.error).to.equal('error')
               expect(res.body.data.message).to.equal('no article title provided')
+              done()
+            })
+          })
+        })
+
+
+          //delete category is here so the article test can have access to category id before it is deleted
+        describe('to delete a category /v1/category/:categoryId',()=>{
+          it('should succesfully delete category',(done)=>{
+            chai.request(app)
+            .delete(`/v1/category/${catId}`)
+            .set('Accept', 'application/json')
+            .end((err,res)=>{
+              expect(res.body.status).to.equal('success')
+              expect(res.body.message).to.equal('category successfully deleted')
               done()
             })
           })
