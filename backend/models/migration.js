@@ -83,7 +83,7 @@ CREATE TABLE gif (
         article varchar NOT NULL,
         user_id INTEGER NOT NULL,
         category_id INTEGER NOT NULL,    
-        created_on time NOT NULL,
+        created_on time,
         flagged BOOLEAN NOT NULL,
         created_by varchar NOT NULL,       
         PRIMARY KEY (article_id)
