@@ -83,14 +83,14 @@ CREATE TABLE gif (
         article varchar NOT NULL,
         user_id INTEGER NOT NULL,
         category_id INTEGER NOT NULL,    
-        created_on timestamp with time zone NOT NULL,
+        created_on time NOT NULL,
         flagged BOOLEAN NOT NULL,
         created_by varchar NOT NULL,       
         PRIMARY KEY (article_id)
        
         );
     
-
+//article_id,title,flagged, category_id,article,created_by,created_on,user_id
 
 `);
 //load
