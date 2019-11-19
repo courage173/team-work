@@ -73,8 +73,7 @@ CREATE TABLE gif (
     CREATE TABLE categories (
         category_id INTEGER NOT NULL,
         category_name varchar NOT NULL,        
-        PRIMARY KEY (category_id),
-        FOREIGN KEY (user_id) 
+        PRIMARY KEY (category_id)
         );
     
 
