@@ -75,10 +75,24 @@ CREATE TABLE gif (
         category_name varchar NOT NULL,        
         PRIMARY KEY (category_id)
         );
+
+    DROP TABLE IF EXISTS articles CASCADE;
+    CREATE TABLE articles (
+        article_id integer NOT NULL,
+        title character varying NOT NULL,
+        article character varying NOT NULL,
+        user_id bigint NOT NULL,
+        flagged boolean DEFAULT false NOT NULL,
+        created_on date NOT NULL,
+        category_id integer NOT NULL,
+        created_by character varying NOT NULL,      
+        PRIMARY KEY (article_id)
+       
+        );
     
 
 
 `);
-//load
+
 
 export default migrate;
