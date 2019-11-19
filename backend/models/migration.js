@@ -76,8 +76,8 @@ CREATE TABLE gif (
         PRIMARY KEY (category_id)
         );
 
-    DROP TABLE IF EXISTS gif_comment CASCADE;
-    CREATE TABLE gif_comment (
+    DROP TABLE IF EXISTS articles CASCADE;
+    CREATE TABLE articles (
         article_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,
         title varchar NOT NULL,        
