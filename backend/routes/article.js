@@ -7,12 +7,13 @@ import { verifyToken } from '../helpers/token';
 
 
 
-const {uploadArticle} = Articles
+const {uploadArticle,updateArticle} = Articles
 
 
 
 
 router.post('/',verifyToken,uploadArticle)
+router.patch('/:articleId',verifyToken,updateArticle)
 
 
 export default router
