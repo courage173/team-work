@@ -20,7 +20,8 @@ class Articles {
     static async uploadArticle(req,res){
         try{
             const createdBy = req.user.email;
-            const userId = req.user.id
+            const userId = req.user.userId
+            console.log(userId)
             const {title,article,flagged, categoryId} = req.body
             const articleId = generateId(938327364)
             const createdOn = dateTime

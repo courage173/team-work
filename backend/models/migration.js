@@ -75,6 +75,19 @@ CREATE TABLE gif (
         category_name varchar NOT NULL,        
         PRIMARY KEY (category_id)
         );
+
+    DROP TABLE IF EXISTS gif_comment CASCADE;
+    CREATE TABLE gif_comment (
+        article_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        title varchar NOT NULL,        
+        created_on timestamp with time zone NOT NULL,
+        flagged BOOLEAN NOT NULL,
+        created_by varchar NOT NULL,
+        article varchar NOT NULL,
+        PRIMARY KEY (article_id)
+       
+        );
     
 
 

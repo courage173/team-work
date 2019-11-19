@@ -261,67 +261,68 @@ describe("testing for gifs Post/Delete/Get", ()=>{
 
 
         //post an article successfully
-        // describe("Posting an article /v1/articles",()=>{
-        //   it("it should return article post successfull",(done)=>{
-        //     chai.request(app)
-        //     .post("/v1/articles")
-        //     .set("Authorization", "Bearer " + token)
-        //     .set("Accept", "application/json")
-        //     .send({
-        //       title: "Love",
-        //       article: "I love Faith Aigbokhan",
-        //       flagged: false
-        //     })
-        //     .end((err,res)=>{
-        //       expect(res.body).to.be.an("object")
-        //       expect(res.body.status).to.equal('success')
-        //       expect(res.body.data.message).to.equal('Article successfully posted”')
-        //       expect(res.body.data.title).to.be.a("string")
-        //       done()
-        //     })
-        //   })
-        // })
+        describe("Posting an article /v1/articles",()=>{
+          it("it should return article post successfull",(done)=>{
+            chai.request(app)
+            .post("/v1/articles")
+            .set("Authorization", "Bearer " + token)
+            .set("Accept", "application/json")
+            .send({
+              title: "Love",
+              article: "I love Faith Aigbokhan",
+              flagged: false,
+              categoryId: 71907431
+            })
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('success')
+              expect(res.body.data.message).to.equal('Article successfully posted')
+              expect(res.body.data.title).to.be.a("string")
+              done()
+            })
+          })
+        })
 
-        // //it should return error 
+        //it should return error 
 
-        // describe("Posting an article /v1/articles",()=>{
-        //   it("it should return eror",(done)=>{
-        //     chai.request(app)
-        //     .post("/v1/articles")
-        //     .set("Authorization", "Bearer " + token)
-        //     .set("Accept", "application/json")
-        //     .send({
-        //       title: "Love",
-        //       flagged: false
-        //     })
-        //     .end((err,res)=>{
-        //       expect(res.body).to.be.an("object")
-        //       expect(res.body.error).to.equal('error')
-        //       expect(res.body.data.message).to.equal('article needed')
-        //       done()
-        //     })
-        //   })
-        // })
+        describe("Posting an article /v1/articles",()=>{
+          it("it should return eror",(done)=>{
+            chai.request(app)
+            .post("/v1/articles")
+            .set("Authorization", "Bearer " + token)
+            .set("Accept", "application/json")
+            .send({
+              title: "Love",
+              flagged: false
+            })
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.error).to.equal('error')
+              expect(res.body.data.message).to.equal('no article body provided')
+              done()
+            })
+          })
+        })
 
-        // //it should error
-        // describe("Posting an article /v1/articles",()=>{
-        //   it("it should return error",(done)=>{
-        //     chai.request(app)
-        //     .post("/v1/articles")
-        //     .set("Authorization", "Bearer " + token)
-        //     .set("Accept", "application/json")
-        //     .send({
-        //       article: "I love Faith Aigbokhan",
-        //       flagged: false
-        //     })
-        //     .end((err,res)=>{
-        //       expect(res.body).to.be.an("object")
-        //       expect(res.body.error).to.equal('error')
-        //       expect(res.body.data.message).to.equal('title cannot be empty')
-        //       done()
-        //     })
-        //   })
-        // })
+        //it should error
+        describe("Posting an article /v1/articles",()=>{
+          it("it should return error",(done)=>{
+            chai.request(app)
+            .post("/v1/articles")
+            .set("Authorization", "Bearer " + token)
+            .set("Accept", "application/json")
+            .send({
+              article: "I love Faith Aigbokhan",
+              flagged: false
+            })
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.error).to.equal('error')
+              expect(res.body.data.message).to.equal('no article title provided')
+              done()
+            })
+          })
+        })
         
      
       })
