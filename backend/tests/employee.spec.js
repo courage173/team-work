@@ -10,7 +10,8 @@ const { expect } = chai;
 
 let token;
 let id;
-let catId
+let catId;
+let articleId;
 
 
 describe("testing for gifs Post/Delete/Get", ()=>{
@@ -267,6 +268,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               expect(res.body.status).to.equal('success')
               expect(res.body.data.message).to.equal('Article successfully posted')
               expect(res.body.data.title).to.be.a("string")
+              articleId = res.body.data.articleId
               done()
             })
           })
@@ -308,6 +310,25 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               expect(res.body).to.be.an("object")
               expect(res.body.error).to.equal('error')
               expect(res.body.data.message).to.equal('no article title provided')
+              done()
+            })
+          })
+        })
+        //updating article
+        describe("Updating an article /v1/articles",()=>{
+          it("it should return successfull",(done)=>{
+            chai.request(app)
+            .patch(`/v1/articles/${articleId}`)
+            .set("Authorization", "Bearer " + token)
+            .set("Accept", "application/json")
+            .send({
+              title: "Love is wonderfull",
+              article: "faith is the woman of my dreams and i wish to make her my wife",
+            })
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('success')
+              expect(res.body.data.message).to.equal('Article successfully updated')
               done()
             })
           })

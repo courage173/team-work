@@ -77,6 +77,49 @@ class Articles {
         };
     }
 
+    static async updateArticle(req,res){
+        try{
+            const { articleId } = req.params;
+            const row = await Articles.model().select('*','article_id=$1', [articleId])
+            if(!row){
+                return res.status(404).json({
+                    error: "error",
+                    message: "article with specified Id not found"
+                })
+            }
+            const createdBy = req.user.email;
+            const userId = req.user.userId
+            const {title,article} = req.body 
+            const createdOn = dateTime
+            console.log(row[0].user_id)
+            console.log(userId)
+            if(row[0].user_id != userId){
+                return res.status(401).json({
+                    status: "error",
+                    message: "You cannot edit this article"
+                })
+            }
+            const rows = await Articles.model().update('title=$1,article=$2','article_id=$3', [`${title}`,`${article}`, `${articleId}`])
+            return res.status(201).json({
+                status: "success",
+                data: {
+                    message:"Article successfully updated",
+                    title,
+                    article,
+                    articleId
+                }
+            })
+
+
+
+        }catch (e) {
+          return res.status(500).json({
+            error: e.message,
+            e
+          })
+        };
+    }
+
    
 
 }  
