@@ -79,12 +79,13 @@ CREATE TABLE gif (
     DROP TABLE IF EXISTS articles CASCADE;
     CREATE TABLE articles (
         article_id INTEGER NOT NULL,
+        title varchar NOT NULL,
+        article varchar NOT NULL,
         user_id INTEGER NOT NULL,
-        title varchar NOT NULL,        
+        category_id INTEGER NOT NULL,    
         created_on timestamp with time zone NOT NULL,
         flagged BOOLEAN NOT NULL,
-        created_by varchar NOT NULL,
-        article varchar NOT NULL,
+        created_by varchar NOT NULL,       
         PRIMARY KEY (article_id)
        
         );
