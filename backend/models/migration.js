@@ -67,9 +67,18 @@ CREATE TABLE gif (
         PRIMARY KEY (comment_id),
         FOREIGN KEY (user_id) 
         REFERENCES users (id)
-        )
+        );
+    
+    DROP TABLE IF EXISTS categories CASCADE;
+    CREATE TABLE categories (
+        category_id INTEGER NOT NULL,
+        category_name varchar NOT NULL,        
+        PRIMARY KEY (category_id)
+        );
+    
 
 
 `);
+//load
 
 export default migrate;

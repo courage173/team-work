@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
 import config from '../config/config';
+import Category from '../controllers/category';
 
 dotenv.config();
 const env = process.env.NODE_ENV;
@@ -64,6 +65,8 @@ class Model {
 
   async update(columns, clause, values) {
     const query = `UPDATE ${this.table} SET ${columns} WHERE ${clause} returning *`;
+   
+
     try {
       const { rows } = await this.pool.query(query, values);
       return rows[0];
@@ -71,6 +74,8 @@ class Model {
       throw err;
     }
   }
+
+  
 
   async delete(clause, values) {
     const query = `DELETE FROM ${this.table} WHERE ${clause} returning *`;
