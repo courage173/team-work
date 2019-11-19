@@ -90,9 +90,9 @@ CREATE TABLE gif (
        
         );
     
-//article_id,title,flagged, category_id,article,created_by,created_on,user_id
+
 
 `);
-//load
+
 
 export default migrate;
