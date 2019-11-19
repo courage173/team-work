@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import users from './routes/admin'
 import employee from './routes/employees';
+import category from './routes/category';
 import { resolve } from  'path'
 
 require("babel-polyfill");
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/v1/auth", users);
 app.use("/v1/gifs", employee);
-app.use("/v1/category", employee)
+app.use("/v1/category", category)
 
 
 

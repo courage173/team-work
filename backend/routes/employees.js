@@ -7,14 +7,14 @@ import Gifs from '../controllers/gifs';
 import { verifyToken } from '../helpers/token';
 
 import GifComment from '../controllers/gifComment'
-import Category from '../controllers/category';
+
 
 const fileUpload = require("express-fileupload");
 
 
 const {uploadGif, deleteGifs,getAllGifs,getOneGif} = Gifs
 const {createGifComment} = GifComment
-const {createCat, updateCat,getAllCat} = Category
+
 
 router.use(
   fileUpload({
@@ -35,7 +35,6 @@ router.get('/:id', getOneGif)
 //gif comments
 router.post('/:gifId/comment',verifyToken,validateComments,createGifComment)
 //Categories routes
-router.post('/',validateCategory,createCat)
 
 
 export default router

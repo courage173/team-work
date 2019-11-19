@@ -39,6 +39,7 @@ class Category {
                 status: "success",
                 data: {
                     message: "Category created successfully",
+                    categoryId: categoryId,
                     categoryName: rows[0].category_name
                 }
             })
@@ -53,7 +54,98 @@ class Category {
         };
     }
 
-  
+    static async updateCat(req,res){
+        try{
+            const {categoryId} = req.params;
+            console.log(categoryId)
+            const {categoryName} = req.body;
+            console.log(categoryName)
+            //async update(columns, clause, values)
+
+            const update = await Category.model().update('category_name=$1','category_id=$2', [`${categoryName}`, `${categoryId}`])
+            console.log(update)
+            return res.status(201).json({
+                status: 'success',
+                data: {
+                    message: "Category updated successfully",
+                    categoryName: update.category_name
+                }                
+            })
+
+        }catch (e) {
+          return res.status(500).json({
+            error: e.message,
+            e
+          })
+        };
+    }
+
+
+    static async getAllCat(req,res){
+        try{
+            
+            const rows = await  Category.model().select("*")
+            return res.status(201).json({
+                status: "success",
+                data: rows
+            })
+
+        }catch (e) {
+          return res.status(500).json({
+            error: e.message,
+            e
+          })
+        };
+    }
+    static async getSingleCat(req,res){
+        try{
+            const {categoryId} = req.params
+            const rows = await Category.model().select('*','category_id=$1',[categoryId])
+            if(!rows[0]){
+                return res.status(404).json({
+                    error: 'error',
+                    message: 'category with specified id not found'
+                })
+            }
+            return res.status(200).json({
+                status: "success",
+                data: {
+                    categoryId: rows[0].category_id,
+                    categoryName: rows[0].category_name
+                }
+
+            })
+        }catch (e) {
+            return res.status(500).json({
+              error: e.message,
+              e
+            })
+          };
+    }
+
+    static async deleteCat(req,res){
+        try{
+            const {categoryId} = req.params
+            const rows = await Category.model().select('*','category_id=$1',[categoryId])
+            if(!rows[0]){
+                return res.status(404).json({
+                    error: 'error',
+                    message: 'category with specified id not found'
+                })
+            }
+            console.log(categoryId)
+            const row = await Category.model().delete('category_id=$1',[categoryId])
+            return res.status(200).json({
+                status: "success",
+                message: 'category successfully deleted'
+            })
+        }catch (e) {
+            return res.status(500).json({
+              error: e.message,
+              e
+            })
+          };
+    }
    
 
 }  
