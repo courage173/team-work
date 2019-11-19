@@ -4,6 +4,7 @@ const errorMessages = {
   required: 'the :attribute is required',
   email: 'the email format is invalid',
   min: 'Min :attribute limit is :min',
+  max: 'Min :attribute limit is :min'
 };
 
 const validateCredentials = (req, res, next, rules) => {
@@ -42,6 +43,14 @@ export const validateComments = (req, res, next) => {
   };
   return validateCredentials(req, res, next, rules);
 };
+
+export const validateCategory = (req, res, next) => {
+  const rules = {
+    categoryName: 'required|max:50'
+  };
+  return validateCredentials(req, res, next, rules);
+};
+
 
 
 

@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/v1/auth", users);
 app.use("/v1/gifs", employee);
+app.use("/v1/category", employee)
 
 
 
