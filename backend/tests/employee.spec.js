@@ -363,18 +363,18 @@ describe("testing for gifs Post/Delete/Get", ()=>{
         })
 
         //getting all articles
-        describe("getting all article",()=>{
-          it("should return successfull",(done)=>{
-            chai.request(app)
-            .get('/v1/articles/')
-            .set("Accept","application/json")
-            .end((err,res)=>{
-              expect(res.body).to.be.an("object")
-              expect(res.body.status).to.equal('success')
-              done()
-            })
-          })
-        })
+        // describe("getting all article",()=>{
+        //   it("should return successfull",(done)=>{
+        //     chai.request(app)
+        //     .get('/v1/articles/')
+        //     .set("Accept","application/json")
+        //     .end((err,res)=>{
+        //       expect(res.body).to.be.an("object")
+        //       expect(res.body.status).to.equal('success')
+        //       done()
+        //     })
+        //   })
+        // })
 
           //delete category is here so the article test can have access to category id before it is deleted
         describe('to delete a category /v1/category/:categoryId',()=>{

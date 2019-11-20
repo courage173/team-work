@@ -9,7 +9,7 @@ import { verifyToken } from '../helpers/token';
 
 
 const {uploadArticle,updateArticle,getSingleArticle,getAllArticles,getArticlesInCategory} = Articles
-const {createArticleComment} = ArticleComment
+
 
 
 
