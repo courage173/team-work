@@ -89,6 +89,19 @@ CREATE TABLE gif (
         PRIMARY KEY (article_id)
        
         );
+
+    DROP TABLE IF EXISTS article_comment CASCADE;
+    CREATE TABLE article_comment (
+        comment_id integer NOT NULL,
+        article_id bigint NOT NULL,
+        comments character varying NOT NULL,
+        flagged boolean DEFAULT false NOT NULL,
+        user_id integer NOT NULL,
+        created_by character varying NOT NULL,
+        created_on time with time zone NOT NULL,     
+        PRIMARY KEY (comment_id)
+        
+        );
     
 
 

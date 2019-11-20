@@ -376,6 +376,43 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
         })
 
+        //article comment
+        describe("Post should return successful v1/articles/<:articleId>/comment",()=>{
+          it("should return return post successfull",(done)=>{
+              chai.request(app)
+              .post(`/v1/articles/${articleId}/comment`)
+              .set("Accept", "application/json")
+              .set("Authorization", "Bearer " + token)
+              .send({
+                  comment: "so who is winning the election",
+                  flagged: false
+              })
+              .end((err,res)=>{
+                console.log(res.body.status)                  
+                expect(res.body).to.be.an('object');
+                expect(res.body.status).to.equal('success');
+                expect(res.body.data.comment).to.be.a('string')
+                done()
+              })
+          })
+      })
+      describe("Post should return invalid credentials v1/articles/<:articleId>/comment",()=>{
+        it("should return return invalid credentials when no comment",(done)=>{
+            chai.request(app)
+            .post(`/v1/articles/${articleId}/comment`)
+            .set("Accept", "application/json")
+            .set("Authorization", "Bearer " + token)
+            .send({
+                flagged: false
+            })
+            .end((err,res)=>{
+                expect(res.body).to.be.an('object');
+                expect(res.body.message).to.equal('no comment provided');
+                done()
+            })
+        })
+    })
+
           //delete category is here so the article test can have access to category id before it is deleted
         describe('to delete a category /v1/category/:categoryId',()=>{
           it('should succesfully delete category',(done)=>{
