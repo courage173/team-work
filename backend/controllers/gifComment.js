@@ -22,7 +22,8 @@ class GifComment {
             const createdBy = req.user.email
             const userId = req.user.userId
             const commentId = generateId(7444985)
-            const {comment, flagged} = req.body
+            const {comment} = req.body
+            let {flagged} = req.body
             const createdOn = dateTime
 
 
@@ -34,6 +35,9 @@ class GifComment {
                     message: "Gif does not exist"
                   }
                 })
+              }
+              if(!flagged){
+                flagged = false;
               }
               if(!comment){
                 return res.status(401).json({
@@ -49,7 +53,7 @@ class GifComment {
                  data: {
                      message: "comment successfully created",
                      createdOn: rows[0].created_on,
-                     gifTitle: rows[0].title,
+                     gifTitle: row[0].title,
                      comment: rows[0].comments
                  }
              })

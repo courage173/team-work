@@ -334,6 +334,47 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
         })
 
+        //get a single article
+        describe("getting a single article",()=>{
+          it("should return successfull",(done)=>{
+            chai.request(app)
+            .get(`/v1/articles/${articleId}`)
+            .set("Accept","application/json")
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('success')
+              done()
+            })
+          })
+        })
+        //article with Id not found
+        describe("getting an article that does not exist",()=>{
+          it("should return error",(done)=>{
+            chai.request(app)
+            .get('/v1/articles/23432')
+            .set("Accept","application/json")
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('error')
+              expect(res.body.message).to.equal('Article with the specified articleId NOT found')
+              done()
+            })
+          })
+        })
+
+        //getting all articles
+        // describe("getting all article",()=>{
+        //   it("should return successfull",(done)=>{
+        //     chai.request(app)
+        //     .get('/v1/articles/')
+        //     .set("Accept","application/json")
+        //     .end((err,res)=>{
+        //       expect(res.body).to.be.an("object")
+        //       expect(res.body.status).to.equal('success')
+        //       done()
+        //     })
+        //   })
+        // })
 
           //delete category is here so the article test can have access to category id before it is deleted
         describe('to delete a category /v1/category/:categoryId',()=>{
