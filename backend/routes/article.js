@@ -17,6 +17,7 @@ const {uploadArticle,updateArticle,getSingleArticle,getAllArticles,getArticlesIn
 router.post('/',verifyToken,uploadArticle)
 router.patch('/:articleId',verifyToken,updateArticle)
 router.get('/:articleId',getSingleArticle)
+router.get('/',getAllArticles)
 
 
 export default router
