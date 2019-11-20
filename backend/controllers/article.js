@@ -171,6 +171,52 @@ class Articles {
           })
         };
     }
+    static async deleteArticle(req,res){
+        try{
+          const {articleId} = req.params;
+          console.log(articleId)
+          
+        const row = await Articles.model().select('*', 'article_id=$1', [articleId]);
+        
+  
+        if(!row[0]){
+          return res.status(404).json({
+            status: "error",
+            data: {
+              message: "article with required Id not found"
+            }
+          })
+        }
+  
+        const email = req.user.email
+        const user_email = row[0].created_by
+  
+        if(user_email !== email){
+          return res.status(401).json({
+            status: "error",
+            data: {
+              message: "you dont have permission to delete required specified article"
+            }
+          })
+        }
+  
+  
+         await Articles.model().delete('article_id=$1', [articleId]);
+        return res.status(200).json({
+          status: "success",
+          data: {
+            message: "article deleted successfully deleted"
+          }
+        })
+  
+        
+      } catch (e) {
+        return res.status(500).json({
+          error: e.message,
+          e
+        })
+      };
+  }
     static async getArticlesInCategory(req, res) {
         try{
             const { categoryId } = req.params;
