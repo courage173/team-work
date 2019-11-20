@@ -8,7 +8,7 @@ import ArticleComment from '../controllers/articleComment';
 
 
 
-const {uploadArticle,updateArticle,getSingleArticle,getAllArticles,getArticlesInCategory} = Articles
+const {uploadArticle,updateArticle,getSingleArticle,getAllArticles,getArticlesInCategory,deleteArticle} = Articles
 const {createArticleComment} = ArticleComment
 
 
@@ -21,6 +21,7 @@ router.get('/',getAllArticles)
 router.get('/cat/:categoryId',getArticlesInCategory)
 //article comment route
 router.post('/:articleId/comment',verifyToken, createArticleComment)
-
+//delete articles
+router.delete('/:articleId',verifyToken, deleteArticle)
 
 export default router

@@ -413,6 +413,21 @@ describe("testing for gifs Post/Delete/Get", ()=>{
         })
     })
 
+    describe("to delete an articles '/v1/gifs/${id}",()=>{
+      it("should delete articles successfully", (done)=>{
+        chai.request(app)
+        .delete(`/v1/articles/${articleId}`)
+        .set("Authorization", "Bearer " + token)
+        .end((err,res)=>{
+          expect(res.body.status).to.equal('success')
+          expect(res.body.data.message).to.be.a('string')
+          
+          done()
+        })
+      })
+    })
+    
+
           //delete category is here so the article test can have access to category id before it is deleted
         describe('to delete a category /v1/category/:categoryId',()=>{
           it('should succesfully delete category',(done)=>{
