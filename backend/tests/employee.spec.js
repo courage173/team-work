@@ -412,7 +412,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             })
         })
     })
-
+    //delete an articles
     describe("to delete an articles '/v1/gifs/${id}",()=>{
       it("should delete articles successfully", (done)=>{
         chai.request(app)

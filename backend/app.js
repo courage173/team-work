@@ -4,6 +4,7 @@ import users from './routes/admin'
 import employee from './routes/employees';
 import category from './routes/category';
 import articles from './routes/article'
+import feeds from './routes/feedRoute'
 import { resolve } from  'path'
 
 require("babel-polyfill");
@@ -26,6 +27,7 @@ app.use("/v1/auth", users);
 app.use("/v1/gifs", employee);
 app.use("/v1/category", category)
 app.use("/v1/articles", articles)
+app.use("/v1/feeds", feeds)
 
 
 
