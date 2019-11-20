@@ -18,6 +18,7 @@ router.post('/',verifyToken,uploadArticle)
 router.patch('/:articleId',verifyToken,updateArticle)
 router.get('/:articleId',getSingleArticle)
 router.get('/',getAllArticles)
+router.get('/cat/:categoryId',getArticlesInCategory)
 
 
 export default router

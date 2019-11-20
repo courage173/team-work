@@ -171,7 +171,27 @@ class Articles {
           })
         };
     }
-    
+    static async getArticlesInCategory(req, res) {
+        try{
+            const { categoryId } = req.params;
+        const article = await Articles.model().select('*','category_id=$1', [categoryId]);
+        if (!article) {
+          return res.status(404).json({
+            status: 'error',
+            message: 'No articles in the specified Category',
+          });
+        }
+        return res.status(200).json({
+          status: 'success',
+          data: article
+        });}catch (e) {
+            return res.status(500).json({
+              error: e.message,
+              e
+            })
+          };
+      }
+
 
    
 
