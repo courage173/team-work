@@ -22,7 +22,8 @@ class Articles {
             const createdBy = req.user.email;
             const userId = req.user.userId
             console.log(userId)
-            const {title,article,flagged, categoryId} = req.body
+            const {title,article, categoryId} = req.body
+            let {flagged} = req.body
             const articleId = generateId(938327364)
             const createdOn = dateTime
 
@@ -33,6 +34,9 @@ class Articles {
                         message: "no article title provided"
                     }
                 })
+            }
+            if(!flagged){
+                flagged = false
             }
 
             if(!article){
@@ -119,6 +123,35 @@ class Articles {
           })
         };
     }
+
+    static async getSingleArticle(req,res){
+        try{
+            const {articleId} = req.params
+            const rows = await Articles.model().select('*','article_id=$1', [articleId])
+            if(!rows[0]){
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'Article with the specified articleId NOT found'
+                })
+            }
+            return res.status(201).json({
+                status: "success",
+                data: {
+                    id: rows[0].article_id,
+                    createdOn: rows[0].created_on,
+                    title: rows[0].title,
+                    article: rows[0].article
+                }
+            })
+        }catch (e) {
+          return res.status(500).json({
+            error: e.message,
+            e
+          })
+        };
+    }
+   
+    
 
    
 
