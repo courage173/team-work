@@ -98,7 +98,7 @@ CREATE TABLE gif (
         flagged boolean DEFAULT false NOT NULL,
         user_id integer NOT NULL,
         created_by character varying NOT NULL,
-        created_on time with time zone NOT NULL      
+        created_on time with time zone NOT NULL,     
         PRIMARY KEY (comment_id)
         
         );
