@@ -238,6 +238,18 @@ class Articles {
           };
       }
 
+      static async getFeed(req, res) {
+        try{
+            const feed = Model.getFeed()
+            console.log(feed)
+        }catch (e) {
+            return res.status(500).json({
+              error: e.message,
+              e
+            })
+          };
+      }
+
 
    
 
