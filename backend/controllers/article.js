@@ -150,7 +150,27 @@ class Articles {
           })
         };
     }
-   
+    static async getAllArticles(req,res){
+        try{
+            
+            const rows = await Articles.model().select('*')
+            if(!rows){
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'Articles not found'
+                })
+            }
+            return res.status(201).json({
+                status: "success",
+                data: rows
+            })
+        }catch (e) {
+          return res.status(500).json({
+            error: e.message,
+            e
+          })
+        };
+    }
     
 
    
