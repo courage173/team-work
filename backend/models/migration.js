@@ -73,7 +73,9 @@ CREATE TABLE gif (
         created_on date NOT NULL,
         category_id integer NOT NULL,
         created_by character varying NOT NULL,      
-        PRIMARY KEY (article_id)
+        PRIMARY KEY (article_id),
+        FOREIGN KEY (user_id) 
+        REFERENCES users (id)
        
         );
 
@@ -86,7 +88,9 @@ CREATE TABLE gif (
         user_id integer NOT NULL,
         created_by character varying NOT NULL,
         created_on time with time zone NOT NULL,     
-        PRIMARY KEY (comment_id)
+        PRIMARY KEY (comment_id),
+        FOREIGN KEY (user_id) 
+        REFERENCES users (id)
         
         );
     

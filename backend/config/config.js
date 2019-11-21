@@ -11,7 +11,7 @@ const testConnectionString = `postgresql://${process.env.DB_USER}:${process.env.
 
 if (process.env.NODE_ENV === 'production') {
   pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: HEROKU_POSTGRESQL_PINK_URL,
     ssl: process.env.NODE_ENV === 'production'
   });
 } else if (process.env.NODE_ENV === 'test') {
