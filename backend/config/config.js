@@ -7,7 +7,7 @@ console.log(`This is a ${process.env.NODE_ENV} environment`);
 
 let pool;
 const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
-const testConnectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/test_teamwork`;
+const testConnectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/teamworkdb`;
 
 if (process.env.NODE_ENV === 'production') {
   pool = new Pool({
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else if (process.env.NODE_ENV === 'test') {
   pool = new Pool({
-    connectionString: connectionString
+    connectionString: testConnectionString
   });
 } else {
   pool = new Pool({
