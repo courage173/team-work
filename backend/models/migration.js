@@ -1,7 +1,4 @@
 import pool from '../config/config'
-
-
-
 pool.on('error', (err) => {
   console.log(err);
 });

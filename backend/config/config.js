@@ -16,7 +16,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else if (process.env.NODE_ENV === 'test') {
   pool = new Pool({
-    connectionString: testConnectionString
+      user: 'kola',
+      host: 'localhost',
+      database: 'teamworkdb',
+      password: 'pedro123',
+      port: 5432,
   });
 } else {
   pool = new Pool({
