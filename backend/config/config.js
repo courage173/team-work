@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else if (process.env.NODE_ENV === 'test') {
   pool = new Pool({
-    connectionString: ConnectionString
+    connectionString: connectionString
   });
 } else {
   pool = new Pool({
