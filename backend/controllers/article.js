@@ -154,7 +154,7 @@ class Articles {
         try{
             
             const rows = await Articles.model().select('*')
-            if(!rows){
+            if(!rows[0]){
                 return res.status(404).json({
                     status: 'error',
                     message: 'Articles not found'
