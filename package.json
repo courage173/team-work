@@ -6,8 +6,8 @@
   "scripts": {
     "migration": "npm run build && node ./dist/models/migration",
     "build": "babel ./backend --out-dir ./dist --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc,./UI,./README.md",
-    "test": " nyc mocha backend/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
-    "start:dev": "nodemon --exec babel-node backend/server.js",
+    "test": "cross-env-shell NODE_ENV=test && npm run migration && nyc mocha backend/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
+    "start:dev": "cross-env-shell NODE_ENV=development && nodemon --exec babel-node backend/server.js",
     "int:test": "npm run migration && nyc mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000",
     "coveralls": "npm run int:test&& nyc report --reporter=text-lcov | coveralls"
   },
@@ -51,6 +51,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^3.0.7",
+    "cross-env": "^6.0.3",
     "datauri": "^2.0.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",

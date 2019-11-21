@@ -1,10 +1,5 @@
-import dotenv from 'dotenv';
-import { Pool } from 'pg';
-import config from '../config/config';
+import pool from '../config/config'
 import Category from '../controllers/category';
-
-dotenv.config();
-const env = process.env.NODE_ENV;
 
 
 
@@ -12,13 +7,7 @@ class Model {
   constructor(table) {
     this.table = table;
 
-    this.pool = new Pool({
-        user: 'kola',
-        host: 'localhost',
-        database: 'teamworkdb',
-        password: 'pedro123',
-        port: 5432,
-    });
+    this.pool = pool
 
      this.pool.on('error', (err, client) => {
       console.log('error');

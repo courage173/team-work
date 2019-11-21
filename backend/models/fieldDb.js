@@ -1,12 +1,8 @@
-import { Pool } from 'pg';
+import pool from '../config/config'
 
-const pool = new Pool({
-    user: 'kola',
-    host: 'localhost',
-    database: 'teamworkdb',
-    password: 'pedro123',
-    port: 5432,
-})
+
+
+
 
 class FeedService {
     static async getFeed() {
