@@ -1,16 +1,11 @@
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
+import pool from '../config/config'
 
 
 dotenv.config();
 
-const pool = new Pool({ 
-    user: 'kola',
-    host: 'localhost',
-    database: 'teamworkdb',
-    password: 'pedro123',
-    port: 5432,
- });
+const pool = pool
 
 pool.on('error', (err) => {
   console.log(err);
