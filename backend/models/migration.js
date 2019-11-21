@@ -5,7 +5,7 @@ import pool from '../config/config'
 
 dotenv.config();
 
-const pool = pool
+
 
 pool.on('error', (err) => {
   console.log(err);
