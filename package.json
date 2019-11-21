@@ -8,7 +8,7 @@
     "build": "babel ./backend --out-dir ./dist --copy-files --ignore ./node_modules,./coverage,./.babelrc,./package.json,./npm-debug.log,./.travis.yml,./.eslintrc,./UI,./README.md",
     "test": "cross-env-shell NODE_ENV=test && npm run migration && nyc mocha backend/tests/**/*.js --require @babel/register --reporter spec --timeout 25000",
     "start:dev": "cross-env-shell NODE_ENV=development && nodemon --exec babel-node backend/server.js",
-    "int:test": "cross-env-shell NODE_ENV=test && npm run migration && nyc mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000",
+    "int:test": "set NODE_ENV=test && npm run migration && nyc mocha backend/tests/*.js --require @babel/register --reporter spec --timeout 25000",
     "coveralls": "npm run int:test&& nyc report --reporter=text-lcov | coveralls"
   },
   "bin": {
