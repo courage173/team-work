@@ -8,6 +8,7 @@ const errorMessages = {
 };
 
 const validateCredentials = (req, res, next, rules) => {
+  console.log(req.body)
   const validator = new Validator(req.body, rules, errorMessages);
   if (validator.passes()) {
     return next();
@@ -20,6 +21,7 @@ const validateCredentials = (req, res, next, rules) => {
 };
 
 export const validateRegisterationCredentials = (req, res, next) => {
+  
   const rules = {
     first_name: 'required|alpha',
     last_name: 'required|alpha',
@@ -30,6 +32,7 @@ export const validateRegisterationCredentials = (req, res, next) => {
 };
 
 export const validateSigninCredentials = (req, res, next) => {
+  
   const rules = {
     email: 'required|email',
     password: 'required|min:6'
