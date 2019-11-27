@@ -20,13 +20,15 @@ class Gifs {
     static async uploadGif(req,res){
         try{
           const file = req.files.image;
-          console.log(file)
+          
             const {title, flagged} =req.body;
-            console.log(title)
+            
             
             if(!title){
                 res.status(400).json({message: "title required"})
             }
+            
+            console.log(flagged)
             const gifcloud = await cloudinary.v2.uploader.upload(file.tempFilePath);
             const {secure_url: secureUrl, created_at: createdOn, public_id: publicId } = gifcloud
 
