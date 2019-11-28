@@ -17,7 +17,6 @@ class Flagged{
     static async flagArticles(req,res){
         const {articleId} = req.params
         const row = await Flagged.model().select('*','article_id=$1',[articleId])
-        console.log(articleId)
         if(!row[0]){
             return res.status(404).json({
                 status: 'error',
@@ -35,7 +34,7 @@ class Flagged{
         const rows = await Flagged.model().update('flagged=$1','article_id=$2', [`${flagged}`, `${articleId}`])
         return res.status(200).json({
             status: 'success',
-            message: 'Article sussfully flagged'
+            message: 'Article sucessfully flagged'
         })
     }
 }
