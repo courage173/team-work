@@ -14,7 +14,7 @@ const fileUpload = require("express-fileupload");
 
 
 const {
-    signUp, signIn, uploadPic
+    signUp, signIn, uploadPic,getUser
   } = User
 
 
@@ -29,6 +29,7 @@ const {
 router.post('/create-user',validateRegisterationCredentials,validateEmailExistence, signUp)
 router.post('/signin',validateSigninCredentials, signIn)
 router.patch('/upload-image',verifyToken, uploadPic)
+router.get('/user',verifyToken,getUser)
 
 
 

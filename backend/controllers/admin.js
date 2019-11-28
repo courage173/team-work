@@ -126,6 +126,29 @@ class User {
       };
 
   }
+  static async getUser(req,res){
+    try{
+    const userId = req.user.userId;
+    console.log(userId)
+    const user = await User.model().select('*', 'id=$1', [userId])
+    return res.status(200).json({
+      status: "success",
+      data: {
+        user_id: user[0].id,
+        is_admin: user[0].is_admin,
+        first_name: user[0].first_name,
+        last_name: user[0].last_name,
+        email: user[0].email
+      }
+    })
+  } catch (e) {
+    return res.status(500).json({
+      error: e.message,
+      e
+    })
+  }
+
+  }
 }
 
 
