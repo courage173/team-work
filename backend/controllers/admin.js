@@ -128,14 +128,19 @@ class User {
   }
   static async getUser(req,res){
     try{
+
     const userId = req.user.userId;
-    console.log(userId)
+    console.log(req)
     const user = await User.model().select('*', 'id=$1', [userId])
+    const email = user[0].email;
+    const isAdmin= user[0].is_admin
+    const token = createToken({ email, isAdmin, userId })
     return res.status(200).json({
       status: "success",
       data: {
         user_id: user[0].id,
         is_admin: user[0].is_admin,
+        token,
         first_name: user[0].first_name,
         last_name: user[0].last_name,
         email: user[0].email

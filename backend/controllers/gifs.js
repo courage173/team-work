@@ -95,7 +95,8 @@ class Gifs {
       return res.status(200).json({
         status: "success",
         data: {
-          message: "gif post successfully deleted"
+          message: "gif post successfully deleted",
+          gif_id
         }
       })
 

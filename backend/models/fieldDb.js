@@ -15,5 +15,10 @@ class FeedService {
       
       return rows;
     }
+    // static async deleteArticle(){
+    //   const article = `
+    //             DELETE * from articles, article_comment WHERE artcile_id=$1
+    //   `,
+    // }
   }
   export default FeedService;
