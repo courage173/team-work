@@ -137,7 +137,7 @@ class Articles {
             return res.status(201).json({
                 status: "success",
                 data: {
-                    id: rows[0].article_id,
+                    ArticleId: rows[0].article_id,
                     createdOn: rows[0].created_on,
                     title: rows[0].title,
                     article: rows[0].article
@@ -205,7 +205,8 @@ class Articles {
         return res.status(200).json({
           status: "success",
           data: {
-            message: "article deleted successfully deleted"
+            message: "article deleted successfully deleted",
+            articleId
           }
         })
   
@@ -229,7 +230,8 @@ class Articles {
         }
         return res.status(200).json({
           status: 'success',
-          data: article
+          data: article,
+          categoryId
         });}catch (e) {
             return res.status(500).json({
               error: e.message,
