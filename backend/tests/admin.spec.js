@@ -44,7 +44,7 @@ describe("create-user and Login Testing", ()=>{
       })
     })
   })
-  describe('POST email already in use/v1/auth/signup', () => {
+  describe('POST email already in use/v1/auth/create-user', () => {
     it('should return user with this email already exist', (done) => {
       chai.request(app)
         .post('/v1/auth/create-user')
