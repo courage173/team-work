@@ -27,7 +27,7 @@ const {
   
 
 
-router.post('/create-user',verifyToken,isAdmin, validateRegisterationCredentials,validateEmailExistence, signUp)
+router.post('/create-user',validateRegisterationCredentials,validateEmailExistence, signUp)
 router.post('/signin',validateSigninCredentials, signIn)
 router.patch('/upload-image',verifyToken, uploadPic)
 router.get('/user',verifyToken,getUser)
