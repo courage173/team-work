@@ -15,7 +15,7 @@ CREATE TABLE users(
     jobroles VARCHAR,
     address VARCHAR,
     gender VARCHAR,
-    image_url
+    image_url VARCHAR,
 );
 INSERT INTO users (
     id, email, first_name, last_name, password, is_admin
@@ -68,7 +68,7 @@ CREATE TABLE gif (
     DROP TABLE IF EXISTS articles CASCADE;
     CREATE TABLE articles (
         article_id integer NOT NULL,
-        gif varchar,
+        gif character varying,
         title character varying NOT NULL,
         article character varying NOT NULL,
         user_id bigint NOT NULL,
