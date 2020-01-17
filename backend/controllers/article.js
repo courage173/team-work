@@ -16,13 +16,16 @@ class Articles {
     static Cat() {
         return new Model('categories');
       }
+      static User() {
+        return new Model('users');
+      }
 
     static async uploadArticle(req,res){
         try{
             const createdBy = req.user.email;
             const userId = req.user.userId
-            console.log(userId)
-            const {title,article, categoryId} = req.body
+            
+            const {title,article, category} = req.body
             let {flagged} = req.body
             const articleId = generateId(938327364)
             const createdOn = dateTime
@@ -48,15 +51,20 @@ class Articles {
                 })
             }
 
-            const category = await Articles.Cat().select('*','category_id=$1', [categoryId])
+            const cat = await Articles.Cat().select('*','category_name=$1', [category])
+            
 
-            if(!category[0]){
+
+            if(!cat[0]){
                 return res.status(404).json({
                     error: "error",
                     message: "Specified Category not found"
 
                 })
             }
+            const categoryId = cat[0].category_id
+            
+            
 
             const rows = await Articles.model().insert(
                 'article_id,title,flagged, category_id,article,created_by,created_on,user_id',
@@ -69,7 +77,8 @@ class Articles {
                   message: "Article successfully posted",
                   articleId: rows[0].article_id,
                   createdOn: rows[0].created_on,
-                  title: rows[0].article
+                  article: rows[0].article,
+                  title: rows[0].title
               }
           })
 
@@ -95,8 +104,7 @@ class Articles {
             const userId = req.user.userId
             const {title,article} = req.body 
             const createdOn = dateTime
-            console.log(row[0].user_id)
-            console.log(userId)
+            
             if(row[0].user_id != userId){
                 return res.status(401).json({
                     status: "error",
@@ -134,13 +142,18 @@ class Articles {
                     message: 'Article with the specified articleId NOT found'
                 })
             }
+           
+           const use = await Articles.User().select('*','email=$1', [rows[0].created_by])
+            //console.log(use[0].first_name)
             return res.status(201).json({
                 status: "success",
                 data: {
                     ArticleId: rows[0].article_id,
                     createdOn: rows[0].created_on,
                     title: rows[0].title,
-                    article: rows[0].article
+                    article: rows[0].article,
+                    createdBy: use[0].first_name + " " + use[0].last_name,
+                    
                 }
             })
         }catch (e) {
@@ -162,7 +175,14 @@ class Articles {
             }
             return res.status(201).json({
                 status: "success",
-                data: rows
+                data: {
+                  id: rows[0].article_id,
+                  article: rows[0].article,
+                  title: rows[0].title,
+                  gif: null
+
+                }
+                
             })
         }catch (e) {
           return res.status(500).json({
@@ -174,7 +194,7 @@ class Articles {
     static async deleteArticle(req,res){
         try{
           const {articleId} = req.params;
-          console.log(articleId)
+          
           
         const row = await Articles.model().select('*', 'article_id=$1', [articleId]);
         
@@ -205,8 +225,8 @@ class Articles {
         return res.status(200).json({
           status: "success",
           data: {
-            message: "article deleted successfully deleted",
-            articleId
+            message: "article deleted successfully",
+            id: articleId
           }
         })
   
@@ -240,17 +260,36 @@ class Articles {
           };
       }
 
-      static async getFeed(req, res) {
+      static async getUserArticles(req, res) {
         try{
-            const feed = Model.getFeed()
-            console.log(feed)
-        }catch (e) {
+            
+            const userId = req.user.userId
+            
+            
+        const article = await Articles.model().select('*');
+        if (!article) {
+          return res.status(404).json({
+            status: 'error',
+            message: 'No articles Posted yet!! Post a new Article',
+          });
+        }
+        const row = await Articles.User().select('*','id=$1', [userId]);
+        return res.status(200).json({
+          status: 'success',
+          
+          data: article
+          
+          
+          
+        });}catch (e) {
             return res.status(500).json({
               error: e.message,
               e
             })
           };
       }
+
+     
 
 
    

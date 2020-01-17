@@ -167,17 +167,17 @@ function () {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
-              file = req.files.image;
-              console.log(file);
+              file = req.files.image; //console.log(file)
+
               userId = req.user.userId;
-              _context3.next = 6;
+              _context3.next = 5;
               return regeneratorRuntime.awrap(User.model().select('*', 'id=$1', [userId]));
 
-            case 6:
+            case 5:
               user = _context3.sent;
 
               if (user[0]) {
-                _context3.next = 9;
+                _context3.next = 8;
                 break;
               }
 
@@ -185,17 +185,17 @@ function () {
                 error: "you don't have permission to perform this"
               }));
 
-            case 9:
-              _context3.next = 11;
+            case 8:
+              _context3.next = 10;
               return regeneratorRuntime.awrap(_cloudinary["default"].v2.uploader.upload(file.tempFilePath));
 
-            case 11:
+            case 10:
               imagecloud = _context3.sent;
               secureUrl = imagecloud.secure_url;
-              _context3.next = 15;
+              _context3.next = 14;
               return regeneratorRuntime.awrap(User.model().update('image_url=$1', 'id=$2', ["".concat(secureUrl), "".concat(userId)]));
 
-            case 15:
+            case 14:
               rows = _context3.sent;
               return _context3.abrupt("return", res.status(201).json({
                 status: 'success',
@@ -204,73 +204,71 @@ function () {
                 }
               }));
 
-            case 19:
-              _context3.prev = 19;
+            case 18:
+              _context3.prev = 18;
               _context3.t0 = _context3["catch"](0);
               return _context3.abrupt("return", res.status(500).json({
                 error: _context3.t0.message,
                 e: _context3.t0
               }));
 
-            case 22:
+            case 21:
               ;
 
-            case 23:
+            case 22:
             case "end":
               return _context3.stop();
           }
         }
-      }, null, null, [[0, 19]]);
+      }, null, null, [[0, 18]]);
     }
   }, {
     key: "getUser",
     value: function getUser(req, res) {
-      var userId, user, email, isAdmin, token;
+      var userId, user, email, isAdmin;
       return regeneratorRuntime.async(function getUser$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.prev = 0;
+              //console.log(req)
               userId = req.user.userId;
-              console.log(req);
-              _context4.next = 5;
+              _context4.next = 4;
               return regeneratorRuntime.awrap(User.model().select('*', 'id=$1', [userId]));
 
-            case 5:
+            case 4:
               user = _context4.sent;
               email = user[0].email;
-              isAdmin = user[0].is_admin;
-              token = (0, _token.createToken)({
-                email: email,
-                isAdmin: isAdmin,
-                userId: userId
-              });
+              isAdmin = user[0].is_admin; //const token = createToken({ email, isAdmin, userId })
+
               return _context4.abrupt("return", res.status(200).json({
                 status: "success",
                 data: {
                   user_id: user[0].id,
                   is_admin: user[0].is_admin,
-                  token: token,
                   first_name: user[0].first_name,
                   last_name: user[0].last_name,
-                  email: user[0].email
+                  email: user[0].email,
+                  department: user[0].department,
+                  jobrole: user[0].jobroles,
+                  imageUrl: user[0].image_url
                 }
               }));
 
-            case 12:
-              _context4.prev = 12;
+            case 10:
+              _context4.prev = 10;
               _context4.t0 = _context4["catch"](0);
               return _context4.abrupt("return", res.status(500).json({
                 error: _context4.t0.message,
                 e: _context4.t0
               }));
 
-            case 15:
+            case 13:
             case "end":
               return _context4.stop();
           }
         }
-      }, null, null, [[0, 12]]);
+      }, null, null, [[0, 10]]);
     }
   }]);
 

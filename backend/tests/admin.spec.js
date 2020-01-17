@@ -8,7 +8,7 @@ import users from '../models/users'
 
 chai.use(chaiHttp)
 const { expect } = chai;
-
+let token;
 
 describe("create-user and Login Testing", ()=>{
   before((done) => {
@@ -118,6 +118,7 @@ describe("create-user and Login Testing", ()=>{
           expect(res.body.data.first_name).to.equal('kola');
           expect(res.body.data.last_name).to.equal('wole');
           expect(res.body.data.email).to.equal('courageosemwengie@gmail.com')
+          token = res.body.data.token
           done()
       })
     })

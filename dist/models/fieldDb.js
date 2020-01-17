@@ -31,7 +31,7 @@ function () {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              getFeed = "\n                SELECT a.\"article_id\" AS id, a.title, a.\"article\" AS \"articleImage/url\", c.category_name AS \"category/public_id\", a.\"created_on\", concat(\"first_name\", ' ', \"last_name\") AS author FROM articles a INNER JOIN users u ON a.\"user_id\" = u.\"id\" INNER JOIN categories c ON a.\"category_id\" = c.\"category_id\"\n                UNION\n                SELECT g.\"gif_id\" AS id, g.title, g.\"gif_url\" AS \"articleImage/url\", g.public_id AS \"category/public_id\", g.\"created_on\", concat(\"first_name\", ' ', \"last_name\") AS author FROM gif g INNER JOIN users u ON g.\"user_id\" = u.\"id\" \n                ORDER BY \"created_on\" DESC";
+              getFeed = "\n                SELECT a.\"article_id\" AS id, a.title, a.\"article\" AS \"article\",a.\"gif\" AS \"gifUrl\", c.category_name AS \"category/public_id\", a.\"created_on\", concat(\"first_name\", ' ', \"last_name\") AS author,image_url as ImagUrl FROM articles a INNER JOIN users u ON a.\"user_id\" = u.\"id\" INNER JOIN categories c ON a.\"category_id\" = c.\"category_id\"\n                UNION\n                SELECT g.\"gif_id\" AS id, g.title,g.\"article\" AS \"article\", g.\"gif_url\" AS \"gifUrl\", g.public_id AS \"category/public_id\", g.\"created_on\", concat(\"first_name\", ' ', \"last_name\") AS author, image_url as ImagUrl FROM gif g INNER JOIN users u ON g.\"user_id\" = u.\"id\" \n                ORDER BY \"created_on\" DESC";
               _context.next = 3;
               return regeneratorRuntime.awrap(_config["default"].query(getFeed));
 
@@ -46,12 +46,7 @@ function () {
           }
         }
       });
-    } // static async deleteArticle(){
-    //   const article = `
-    //             DELETE * from articles, article_comment WHERE artcile_id=$1
-    //   `,
-    // }
-
+    }
   }]);
 
   return FeedService;

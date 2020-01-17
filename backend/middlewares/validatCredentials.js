@@ -48,6 +48,7 @@ export const validateComments = (req, res, next) => {
 };
 
 export const validateCategory = (req, res, next) => {
+  
   const rules = {
     categoryName: 'required|max:50'
   };

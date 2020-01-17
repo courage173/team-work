@@ -58,7 +58,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               expect(res.body.data.imageUrl).to.be.a('string')
               expect(res.body.data.title).to.be.a('string');
               id = res.body.data.gifId
-              console.log(res.body.data.title)
+              
               
               done();
           })
@@ -261,7 +261,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               title: "Love",
               article: "I love Faith Aigbokhan",
               flagged: false,
-              categoryId: catId
+              category: "Fashion2"
             })
             .end((err,res)=>{
               expect(res.body).to.be.an("object")
@@ -369,6 +369,35 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             .get('/v1/articles/')
             .set("Accept","application/json")
             .end((err,res)=>{
+              
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('success')
+              done()
+            })
+          })
+        })
+        //getting user article
+        describe("getting User articles",()=>{
+          it("should return successfull",(done)=>{
+            chai.request(app)
+            .get(`/v1/articles/user-feed/${id}`)
+            .set("Authorization", "Bearer " + token)
+            .set("Accept","application/json")
+            .end((err,res)=>{
+              expect(res.body).to.be.an("object")
+              expect(res.body.status).to.equal('success')
+              done()
+            })
+          })
+        })
+        //getting all feeds
+        describe("getting all feeds",()=>{
+          it("should return successfull",(done)=>{
+            chai.request(app)
+            .get("/v1/feeds")
+            .set("Authorization", "Bearer " + token)
+            .set("Accept","application/json")
+            .end((err,res)=>{
               expect(res.body).to.be.an("object")
               expect(res.body.status).to.equal('success')
               done()
@@ -388,7 +417,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                   flagged: false
               })
               .end((err,res)=>{
-                console.log(res.body.status)                  
+                                  
                 expect(res.body).to.be.an('object');
                 expect(res.body.status).to.equal('success');
                 expect(res.body.data.comment).to.be.a('string')

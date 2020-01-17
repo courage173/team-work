@@ -13,6 +13,8 @@ var _cloudinary = _interopRequireDefault(require("cloudinary"));
 
 var _identity = _interopRequireDefault(require("../middlewares/identity"));
 
+var _fs = require("fs");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20,6 +22,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var fs = require('fs');
 
 _cloudinary["default"].config({
   cloud_name: 'dm4gkystq',
@@ -40,6 +44,11 @@ function () {
       return new _db["default"]('gif');
     }
   }, {
+    key: "User",
+    value: function User() {
+      return new _db["default"]('users');
+    }
+  }, {
     key: "uploadGif",
     value: function uploadGif(req, res) {
       var file, _req$body, title, flagged, gifcloud, secureUrl, createdOn, publicId, identity, userId, createdBy, rows;
@@ -49,6 +58,10 @@ function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
+              // const contents = fs.readFileSync('req', 'utf8')
+              // console.log(contents)
+              console.log(req.body);
+              console.log(req.files.image);
               file = req.files.image;
               _req$body = req.body, title = _req$body.title, flagged = _req$body.flagged;
 
@@ -59,19 +72,19 @@ function () {
               }
 
               console.log(flagged);
-              _context.next = 7;
+              _context.next = 9;
               return regeneratorRuntime.awrap(_cloudinary["default"].v2.uploader.upload(file.tempFilePath));
 
-            case 7:
+            case 9:
               gifcloud = _context.sent;
               secureUrl = gifcloud.secure_url, createdOn = gifcloud.created_at, publicId = gifcloud.public_id;
               identity = (0, _identity["default"])(120000);
               userId = req.user.userId;
               createdBy = req.user.email;
-              _context.next = 14;
+              _context.next = 16;
               return regeneratorRuntime.awrap(Gifs.model().insert('gif_id,title,flagged, public_id,gif_url,created_by,created_on,user_id', "'".concat(identity, "', '").concat(title, "', '").concat(flagged, "', '").concat(publicId, "','").concat(secureUrl, "','").concat(createdBy, "', '").concat(createdOn, "', '").concat(userId, "'")));
 
-            case 14:
+            case 16:
               rows = _context.sent;
               return _context.abrupt("return", res.status(201).json({
                 status: 'success',
@@ -84,23 +97,23 @@ function () {
                 }
               }));
 
-            case 18:
-              _context.prev = 18;
+            case 20:
+              _context.prev = 20;
               _context.t0 = _context["catch"](0);
               return _context.abrupt("return", res.status(500).json({
                 error: _context.t0.message,
                 e: _context.t0
               }));
 
-            case 21:
+            case 23:
               ;
 
-            case 22:
+            case 24:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[0, 18]]);
+      }, null, null, [[0, 20]]);
     }
   }, {
     key: "deleteGifs",
@@ -159,7 +172,7 @@ function () {
                 status: "success",
                 data: {
                   message: "gif post successfully deleted",
-                  gif_id: gif_id
+                  id: gif_id
                 }
               }));
 
@@ -220,7 +233,7 @@ function () {
   }, {
     key: "getOneGif",
     value: function getOneGif(req, res) {
-      var id, row;
+      var id, row, name;
       return regeneratorRuntime.async(function getOneGif$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -244,25 +257,36 @@ function () {
               }));
 
             case 7:
+              _context4.next = 9;
+              return regeneratorRuntime.awrap(Gifs.User().select('*', 'id=$1', [row[0].user_id]));
+
+            case 9:
+              name = _context4.sent;
               return _context4.abrupt("return", res.status(200).json({
                 status: "success",
-                data: row[0]
+                data: {
+                  ArticleId: row[0].gif_id,
+                  createdOn: row[0].created_on,
+                  title: row[0].title,
+                  gifUrl: row[0].gif_url,
+                  createdBy: name[0].first_name + " " + name[0].last_name
+                }
               }));
 
-            case 10:
-              _context4.prev = 10;
+            case 13:
+              _context4.prev = 13;
               _context4.t0 = _context4["catch"](0);
               return _context4.abrupt("return", res.status(500).json({
                 error: _context4.t0.message,
                 e: _context4.t0
               }));
 
-            case 13:
+            case 16:
             case "end":
               return _context4.stop();
           }
         }
-      }, null, null, [[0, 10]]);
+      }, null, null, [[0, 13]]);
     }
   }]);
 

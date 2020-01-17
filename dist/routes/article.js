@@ -24,6 +24,7 @@ var router = _express["default"].Router();
 var uploadArticle = _article["default"].uploadArticle,
     updateArticle = _article["default"].updateArticle,
     getSingleArticle = _article["default"].getSingleArticle,
+    getUserArticles = _article["default"].getUserArticles,
     getAllArticles = _article["default"].getAllArticles,
     getArticlesInCategory = _article["default"].getArticlesInCategory,
     deleteArticle = _article["default"].deleteArticle,
@@ -33,6 +34,7 @@ router.post('/', _token.verifyToken, uploadArticle);
 router.patch('/:articleId', _token.verifyToken, updateArticle);
 router.get('/:articleId', getSingleArticle);
 router.get('/', getAllArticles);
+router.get('/user-feed/:userId', _token.verifyToken, getUserArticles);
 router.get('/feed', _token.verifyToken, getFeed);
 router.get('/cat/:categoryId', getArticlesInCategory); //article comment route
 
