@@ -2,6 +2,8 @@ import { createToken } from '../helpers/token';
 import Model from '../models/db'
 import cloudinary from 'cloudinary'
 import generateId from '../middlewares/identity'
+import { constants } from 'fs';
+var fs = require('fs');
 
 
 cloudinary.config({ 
@@ -16,9 +18,18 @@ class Gifs {
     static model() {
       return new Model('gif');
     }
+    static User() {
+      return new Model('users');
+    }
 
     static async uploadGif(req,res){
         try{
+       
+ 
+          // const contents = fs.readFileSync('req', 'utf8')
+          // console.log(contents)
+          
+          
           const file = req.files.image;
           
             const {title, flagged} =req.body;
@@ -28,7 +39,7 @@ class Gifs {
                 res.status(400).json({message: "title required"})
             }
             
-            console.log(flagged)
+            
             const gifcloud = await cloudinary.v2.uploader.upload(file.tempFilePath);
             const {secure_url: secureUrl, created_at: createdOn, public_id: publicId } = gifcloud
 
@@ -96,7 +107,7 @@ class Gifs {
         status: "success",
         data: {
           message: "gif post successfully deleted",
-          gif_id
+          id: gif_id
         }
       })
 
@@ -129,7 +140,7 @@ static async getAllGifs(req,res){
 static async getOneGif(req,res){
   try{
     const {id} = req.params;
-        
+     
     const row = await Gifs.model().select('*', 'gif_id=$1', [id]);
     if(!row[0]){
       return res.status(400).json({
@@ -139,9 +150,16 @@ static async getOneGif(req,res){
       })
     }
     
+    const name = await Gifs.User().select('*', 'id=$1', [row[0].user_id])
     return res.status(200).json({
       status: "success",
-      data: row[0]
+      data: {
+        ArticleId: row[0].gif_id,
+        createdOn: row[0].created_on,
+        title: row[0].title,
+        gifUrl: row[0].gif_url,
+        createdBy: name[0].first_name + " " + name[0].last_name,
+      }
     })
 
   } catch(e){

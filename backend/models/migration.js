@@ -14,7 +14,8 @@ CREATE TABLE users(
     department VARCHAR,
     jobroles VARCHAR,
     address VARCHAR,
-    gender VARCHAR
+    gender VARCHAR,
+    image_url
 );
 INSERT INTO users (
     id, email, first_name, last_name, password, is_admin
@@ -29,7 +30,8 @@ INSERT INTO users (
 
 DROP TABLE IF EXISTS gif CASCADE;
 CREATE TABLE gif (
-	gif_id serial NOT NULL,
+    gif_id serial NOT NULL,
+    article varchar,
 	title varchar NOT NULL,
 	gif_url varchar NOT NULL,
 	created_on timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -66,6 +68,7 @@ CREATE TABLE gif (
     DROP TABLE IF EXISTS articles CASCADE;
     CREATE TABLE articles (
         article_id integer NOT NULL,
+        gif varchar,
         title character varying NOT NULL,
         article character varying NOT NULL,
         user_id bigint NOT NULL,
@@ -76,6 +79,7 @@ CREATE TABLE gif (
         PRIMARY KEY (article_id),
         FOREIGN KEY (user_id) 
         REFERENCES users (id)
+      
        
         );
 

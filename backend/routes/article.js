@@ -8,7 +8,9 @@ import ArticleComment from '../controllers/articleComment';
 
 
 
-const {uploadArticle,updateArticle,getSingleArticle,getAllArticles,getArticlesInCategory,deleteArticle,getFeed} = Articles
+const {uploadArticle,updateArticle,getSingleArticle,
+    getUserArticles,getAllArticles,
+    getArticlesInCategory,deleteArticle,getFeed} = Articles
 const {createArticleComment} = ArticleComment
 
 
@@ -18,7 +20,7 @@ router.post('/',verifyToken,uploadArticle)
 router.patch('/:articleId',verifyToken,updateArticle)
 router.get('/:articleId',getSingleArticle)
 router.get('/',getAllArticles)
-router.get('/feed',verifyToken, getFeed)
+router.get('/user-feed/:userId',verifyToken, getUserArticles)
 router.get('/cat/:categoryId',getArticlesInCategory)
 //article comment route
 router.post('/:articleId/comment',verifyToken, createArticleComment)

@@ -21,18 +21,19 @@ class User {
   static async signUp(req, res) {
     try {
         const {
-          email, first_name, last_name,is_admin, jobroles,department,gender,address
+          email, first_name, last_name,is_admin, jobroles,department,gender,address,password 
         } = req.body;
   
-        let { password } = req.body;
+        
+
         
         const token = createToken({
           email,is_admin,is_admin
         });
-        password = pass.hashPassword(password);
+        const passwrd = pass.hashPassword(password);
         const rows = await User.model().insert(
           'email, first_name, last_name, password, is_admin, jobroles, department, gender, address',
-          `'${email}', '${first_name}', '${last_name}', '${password}', '${is_admin}', '${jobroles}', '${department}', '${gender}', '${address}'`
+          `'${email}', '${first_name}', '${last_name}', '${passwrd}', '${is_admin}', '${jobroles}', '${department}', '${gender}', '${address}'`
         );
   
         return res.status(201).json({
@@ -97,7 +98,7 @@ class User {
     static async uploadPic(req,res){
       try{
         const file = req.files.image;
-        console.log(file)
+        
           
                    
           const userId = req.user.userId
@@ -128,22 +129,24 @@ class User {
   }
   static async getUser(req,res){
     try{
+     
 
     const userId = req.user.userId;
-    console.log(req)
     const user = await User.model().select('*', 'id=$1', [userId])
     const email = user[0].email;
     const isAdmin= user[0].is_admin
-    const token = createToken({ email, isAdmin, userId })
+    
     return res.status(200).json({
       status: "success",
       data: {
         user_id: user[0].id,
         is_admin: user[0].is_admin,
-        token,
         first_name: user[0].first_name,
         last_name: user[0].last_name,
-        email: user[0].email
+        email: user[0].email,
+        department: user[0].department,
+        jobrole: user[0].jobroles,
+        imageUrl: user[0].image_url
       }
     })
   } catch (e) {

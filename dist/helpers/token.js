@@ -20,8 +20,8 @@ var createToken = function createToken(data) {
 exports.createToken = createToken;
 
 var verifyToken = function verifyToken(req, res, next) {
+  //console.log(req)
   var token = req.headers.authorization.split(' ')[1];
-  console.log(token);
 
   if (!token) {
     return res.status(403).json({

@@ -15,6 +15,7 @@ class Category {
     }
     static async createCat(req,res){
         try{
+            
 
             const {categoryName} = req.body;
             const categoryId = generateId(75673647)

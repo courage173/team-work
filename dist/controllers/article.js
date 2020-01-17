@@ -40,9 +40,14 @@ function () {
       return new _db["default"]('categories');
     }
   }, {
+    key: "User",
+    value: function User() {
+      return new _db["default"]('users');
+    }
+  }, {
     key: "uploadArticle",
     value: function uploadArticle(req, res) {
-      var createdBy, userId, _req$body, title, article, categoryId, flagged, articleId, createdOn, category, rows;
+      var createdBy, userId, _req$body, title, article, category, flagged, articleId, createdOn, cat, categoryId, rows;
 
       return regeneratorRuntime.async(function uploadArticle$(_context) {
         while (1) {
@@ -52,7 +57,7 @@ function () {
               createdBy = req.user.email;
               userId = req.user.userId;
               console.log(userId);
-              _req$body = req.body, title = _req$body.title, article = _req$body.article, categoryId = _req$body.categoryId;
+              _req$body = req.body, title = _req$body.title, article = _req$body.article, category = _req$body.category;
               flagged = req.body.flagged;
               articleId = (0, _identity["default"])(938327364);
               createdOn = dateTime;
@@ -88,12 +93,12 @@ function () {
 
             case 13:
               _context.next = 15;
-              return regeneratorRuntime.awrap(Articles.Cat().select('*', 'category_id=$1', [categoryId]));
+              return regeneratorRuntime.awrap(Articles.Cat().select('*', 'category_name=$1', [category]));
 
             case 15:
-              category = _context.sent;
+              cat = _context.sent;
 
-              if (category[0]) {
+              if (cat[0]) {
                 _context.next = 18;
                 break;
               }
@@ -104,10 +109,11 @@ function () {
               }));
 
             case 18:
-              _context.next = 20;
+              categoryId = cat[0].category_id;
+              _context.next = 21;
               return regeneratorRuntime.awrap(Articles.model().insert('article_id,title,flagged, category_id,article,created_by,created_on,user_id', "'".concat(articleId, "', '").concat(title, "', '").concat(flagged, "', '").concat(categoryId, "','").concat(article, "','").concat(createdBy, "', '").concat(createdOn, "', '").concat(userId, "'")));
 
-            case 20:
+            case 21:
               rows = _context.sent;
               return _context.abrupt("return", res.status(201).json({
                 status: "success",
@@ -115,27 +121,28 @@ function () {
                   message: "Article successfully posted",
                   articleId: rows[0].article_id,
                   createdOn: rows[0].created_on,
-                  title: rows[0].article
+                  article: rows[0].article,
+                  title: rows[0].title
                 }
               }));
 
-            case 24:
-              _context.prev = 24;
+            case 25:
+              _context.prev = 25;
               _context.t0 = _context["catch"](0);
               return _context.abrupt("return", res.status(500).json({
                 error: _context.t0.message,
                 e: _context.t0
               }));
 
-            case 27:
+            case 28:
               ;
 
-            case 28:
+            case 29:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[0, 24]]);
+      }, null, null, [[0, 25]]);
     }
   }, {
     key: "updateArticle",
@@ -219,7 +226,7 @@ function () {
   }, {
     key: "getSingleArticle",
     value: function getSingleArticle(req, res) {
-      var articleId, rows;
+      var articleId, rows, use;
       return regeneratorRuntime.async(function getSingleArticle$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -243,38 +250,44 @@ function () {
               }));
 
             case 7:
+              _context3.next = 9;
+              return regeneratorRuntime.awrap(Articles.User().select('*', 'email=$1', [rows[0].created_by]));
+
+            case 9:
+              use = _context3.sent;
               return _context3.abrupt("return", res.status(201).json({
                 status: "success",
                 data: {
                   ArticleId: rows[0].article_id,
                   createdOn: rows[0].created_on,
                   title: rows[0].title,
-                  article: rows[0].article
+                  article: rows[0].article,
+                  createdBy: use[0].first_name + " " + use[0].last_name
                 }
               }));
 
-            case 10:
-              _context3.prev = 10;
+            case 13:
+              _context3.prev = 13;
               _context3.t0 = _context3["catch"](0);
               return _context3.abrupt("return", res.status(500).json({
                 error: _context3.t0.message,
                 e: _context3.t0
               }));
 
-            case 13:
+            case 16:
               ;
 
-            case 14:
+            case 17:
             case "end":
               return _context3.stop();
           }
         }
-      }, null, null, [[0, 10]]);
+      }, null, null, [[0, 13]]);
     }
   }, {
     key: "getAllArticles",
     value: function getAllArticles(req, res) {
-      var rows;
+      var rows, user;
       return regeneratorRuntime.async(function getAllArticles$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -297,28 +310,38 @@ function () {
               }));
 
             case 6:
+              _context4.next = 8;
+              return regeneratorRuntime.awrap(Articles.User().select('*', 'id=$1', []));
+
+            case 8:
+              user = _context4.sent;
               return _context4.abrupt("return", res.status(201).json({
                 status: "success",
-                data: rows
+                data: {
+                  id: rows[0].article_id,
+                  article: rows[0].article,
+                  title: rows[0].title,
+                  gif: null
+                }
               }));
 
-            case 9:
-              _context4.prev = 9;
+            case 12:
+              _context4.prev = 12;
               _context4.t0 = _context4["catch"](0);
               return _context4.abrupt("return", res.status(500).json({
                 error: _context4.t0.message,
                 e: _context4.t0
               }));
 
-            case 12:
+            case 15:
               ;
 
-            case 13:
+            case 16:
             case "end":
               return _context4.stop();
           }
         }
-      }, null, null, [[0, 9]]);
+      }, null, null, [[0, 12]]);
     }
   }, {
     key: "deleteArticle",
@@ -373,8 +396,8 @@ function () {
               return _context5.abrupt("return", res.status(200).json({
                 status: "success",
                 data: {
-                  message: "article deleted successfully deleted",
-                  articleId: articleId
+                  message: "article deleted successfully",
+                  id: articleId
                 }
               }));
 
@@ -448,25 +471,81 @@ function () {
       }, null, null, [[0, 10]]);
     }
   }, {
-    key: "getFeed",
-    value: function getFeed(req, res) {
-      var feed;
-      return regeneratorRuntime.async(function getFeed$(_context7) {
+    key: "getUserArticles",
+    value: function getUserArticles(req, res) {
+      var userId, article, row;
+      return regeneratorRuntime.async(function getUserArticles$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               _context7.prev = 0;
-              feed = _db["default"].getFeed();
-              console.log(feed);
-              _context7.next = 8;
-              break;
+              userId = req.user.userId;
+              console.log(userId);
+              _context7.next = 5;
+              return regeneratorRuntime.awrap(Articles.model().select('*'));
 
             case 5:
-              _context7.prev = 5;
+              article = _context7.sent;
+
+              if (article) {
+                _context7.next = 8;
+                break;
+              }
+
+              return _context7.abrupt("return", res.status(404).json({
+                status: 'error',
+                message: 'No articles Posted yet!! Post a new Article'
+              }));
+
+            case 8:
+              _context7.next = 10;
+              return regeneratorRuntime.awrap(Articles.User().select('*', 'id=$1', [userId]));
+
+            case 10:
+              row = _context7.sent;
+              return _context7.abrupt("return", res.status(200).json({
+                status: 'success',
+                data: article
+              }));
+
+            case 14:
+              _context7.prev = 14;
               _context7.t0 = _context7["catch"](0);
               return _context7.abrupt("return", res.status(500).json({
                 error: _context7.t0.message,
                 e: _context7.t0
+              }));
+
+            case 17:
+              ;
+
+            case 18:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, null, null, [[0, 14]]);
+    }
+  }, {
+    key: "getFeed",
+    value: function getFeed(req, res) {
+      var feed;
+      return regeneratorRuntime.async(function getFeed$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              feed = _db["default"].getFeed();
+              console.log(feed);
+              _context8.next = 8;
+              break;
+
+            case 5:
+              _context8.prev = 5;
+              _context8.t0 = _context8["catch"](0);
+              return _context8.abrupt("return", res.status(500).json({
+                error: _context8.t0.message,
+                e: _context8.t0
               }));
 
             case 8:
@@ -474,7 +553,7 @@ function () {
 
             case 9:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
         }
       }, null, null, [[0, 5]]);
