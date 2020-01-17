@@ -60,7 +60,7 @@ class Gifs {
               message: "gif image succesfully uploaded",
               createdOn: rows[0].created_on,
               title: rows[0].title,
-              imageUrl: rows[0].gif_url
+              gifUrl: rows[0].gif_url
             }
               
           });
