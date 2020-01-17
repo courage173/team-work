@@ -15,7 +15,7 @@ CREATE TABLE users(
     jobroles VARCHAR,
     address VARCHAR,
     gender VARCHAR,
-    image_url VARCHAR,
+    image_url VARCHAR
 );
 INSERT INTO users (
     id, email, first_name, last_name, password, is_admin
