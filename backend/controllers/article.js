@@ -266,7 +266,7 @@ class Articles {
             const userId = req.user.userId
             
             
-        const article = await Articles.model().select('*');
+        const article = await Articles.model().select('*','user_id=$1', [userId]);
         if (!article) {
           return res.status(404).json({
             status: 'error',
