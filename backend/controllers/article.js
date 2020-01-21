@@ -26,6 +26,7 @@ class Articles {
             const userId = req.user.userId
             
             const {title,article, category} = req.body
+            
             let {flagged} = req.body
             const articleId = generateId(938327364)
             const createdOn = dateTime
@@ -67,8 +68,8 @@ class Articles {
             
 
             const rows = await Articles.model().insert(
-                'article_id,title,flagged, category_id,article,created_by,created_on,user_id',
-                `'${articleId}', '${title}', '${flagged}', '${categoryId}','${article}','${createdBy}', '${createdOn}', '${userId}'`
+                'article_id,title,flagged, category_id,article,created_by,created_on,user_id','$1,$2,$3,$4,$5,$6,$7,$8',
+                [articleId, title, flagged, categoryId,article,createdBy, createdOn,userId]
           );
 
           return res.status(201).json({
@@ -173,6 +174,7 @@ class Articles {
                     message: 'Articles not found'
                 })
             }
+            const art = rows[0].article.replace("/\\","'")
             return res.status(201).json({
                 status: "success",
                 data: {
