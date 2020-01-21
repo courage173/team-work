@@ -35,8 +35,8 @@ class Gifs {
             const {title, flagged} =req.body;
             
             
-            if(!title){
-                res.status(400).json({message: "title required"})
+            if(file===null){
+                return res.status(400).json({message: "File required"})
             }
             
             
@@ -49,8 +49,8 @@ class Gifs {
             const createdBy = req.user.email;
             
             const rows = await Gifs.model().insert(
-                'gif_id,title,flagged, public_id,gif_url,created_by,created_on,user_id',
-                `'${identity}', '${title}', '${flagged}', '${publicId}','${secureUrl}','${createdBy}', '${createdOn}', '${userId}'`
+                'gif_id,title,flagged, public_id,gif_url,created_by,created_on,user_id','$1,$2,$3,$4,$5,$6,$7,$8',
+                [identity, title, flagged, publicId,secureUrl,createdBy,createdOn,userId]
           );
     
           return res.status(201).json({
