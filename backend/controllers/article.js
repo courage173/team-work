@@ -154,6 +154,7 @@ class Articles {
                     title: rows[0].title,
                     article: rows[0].article,
                     createdBy: use[0].first_name + " " + use[0].last_name,
+                    imageUrl: use[0].image_url
                     
                 }
             })

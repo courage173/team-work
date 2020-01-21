@@ -159,6 +159,7 @@ static async getOneGif(req,res){
         title: row[0].title,
         gifUrl: row[0].gif_url,
         createdBy: name[0].first_name + " " + name[0].last_name,
+        imageUrl: name[0].image_url
       }
     })
 
