@@ -26,8 +26,8 @@ class Gifs {
         try{
        
  
-          // const contents = fs.readFileSync('req', 'utf8')
-          // console.log(contents)
+         
+          //console.log(req.body)
           
           
           const file = req.files.image;
@@ -40,7 +40,11 @@ class Gifs {
             }
             
             
-            const gifcloud = await cloudinary.v2.uploader.upload(file.tempFilePath);
+            const gifcloud = await cloudinary.v2.uploader.upload(file.tempFilePath,{quality: 'auto',
+              transformation: [
+                {aspect_ratio: "4:3", crop: "fill"},
+                {width: "auto", dpr: "auto", crop: "scale"}
+                ]});
             const {secure_url: secureUrl, created_at: createdOn, public_id: publicId } = gifcloud
 
             
