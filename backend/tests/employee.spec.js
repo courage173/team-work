@@ -51,11 +51,12 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               flagged: true,
               
           })
-          .attach('image', './backend/pic.png')
+          .attach('image', './backend/images/pic.png')
           .end((err,res)=>{
+              console.log(res)
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
-              expect(res.body.data.imageUrl).to.be.a('string')
+              expect(res.body.data.gifUrl).to.be.a('string')
               expect(res.body.data.title).to.be.a('string');
               id = res.body.data.gifId
               
