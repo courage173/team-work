@@ -68,7 +68,7 @@ class User {
           const userId = registered[0].id;
           const firstName = registered[0].first_name;
           const lastName = registered[0].last_name;
-          const token = createToken({ mail, isAdmin, userId });
+          const token = createToken({ email, isAdmin, userId });
           
           return res.status(200).json({
             status: 'success',
