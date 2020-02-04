@@ -53,7 +53,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
           .attach('image', './backend/images/pic.png')
           .end((err,res)=>{
-              console.log(res)
+             
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
               expect(res.body.data.gifUrl).to.be.a('string')

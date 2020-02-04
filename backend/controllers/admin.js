@@ -59,9 +59,9 @@ class User {
     static async signIn(req, res) {
       try {
         const { email, password } = req.body;
-        console.log(email)
+        const mail = email.toLowerCase()
         
-        const registered = await User.model().select('*', 'email=$1', [email]);
+        const registered = await User.model().select('*', 'email=$1', [mail]);
   
         if (registered[0] && pass.decryptPassword(password, registered[0].password)) {
           const isAdmin = registered[0].is_admin;
