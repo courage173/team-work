@@ -59,16 +59,16 @@ class User {
     static async signIn(req, res) {
       try {
         const { email, password } = req.body;
-        console.log(email)
+        const mail = email.toLowerCase()
         
-        const registered = await User.model().select('*', 'email=$1', [email]);
+        const registered = await User.model().select('*', 'email=$1', [mail]);
   
         if (registered[0] && pass.decryptPassword(password, registered[0].password)) {
           const isAdmin = registered[0].is_admin;
           const userId = registered[0].id;
           const firstName = registered[0].first_name;
           const lastName = registered[0].last_name;
-          const token = createToken({ email, isAdmin, userId });
+          const token = createToken({ mail, isAdmin, userId });
           
           return res.status(200).json({
             status: 'success',
