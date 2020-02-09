@@ -11,7 +11,7 @@ import ArticleComment from '../controllers/articleComment';
 const {uploadArticle,updateArticle,getSingleArticle,
     getUserArticles,getAllArticles,
     getArticlesInCategory,deleteArticle,getFeed} = Articles
-const {createArticleComment} = ArticleComment
+const {createArticleComment,getArticleComment,deleteArtComment} = ArticleComment
 
 
 
@@ -24,6 +24,8 @@ router.get('/user-feed/:userId',verifyToken, getUserArticles)
 router.get('/cat/:categoryId',getArticlesInCategory)
 //article comment route
 router.post('/:articleId/comment',verifyToken, createArticleComment)
+router.get('/:articleId/comment',verifyToken,getArticleComment)
+router.delete('/:commentId/comment',verifyToken,deleteArtComment)
 //delete articles
 router.delete('/:articleId',verifyToken, deleteArticle)
 

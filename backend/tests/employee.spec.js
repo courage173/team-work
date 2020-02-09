@@ -53,7 +53,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
           })
           .attach('image', './backend/images/pic.png')
           .end((err,res)=>{
-             
+              
               expect(res.body).to.be.an('object');
               expect(res.body.status).to.equal('success');
               expect(res.body.data.gifUrl).to.be.a('string')
@@ -105,7 +105,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
         //this are test for Gif comments
 
         //posting a comment on a gif
-
+        let commentId
         describe("Post should return successful v1/gifs/<:gifId>/comment",()=>{
           it("should return return post successfull",(done)=>{
               chai.request(app)
@@ -117,7 +117,8 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                   flagged: false
               })
               .end((err,res)=>{
-                console.log(res.body.status)                  
+                console.log(res.body.data.commentId ) 
+                commentId = res.body.data.commentId                 
                 expect(res.body).to.be.an('object');
                 expect(res.body.status).to.equal('success');
                 expect(res.body.data.comment).to.be.a('string')
@@ -125,6 +126,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
               })
           })
       })
+     
       describe("Post should return invalid credentials v1/gifs/<:gifId>/comment",()=>{
         it("should return return invalid credentials when no comment",(done)=>{
             chai.request(app)
@@ -135,6 +137,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                 flagged: false
             })
             .end((err,res)=>{
+              
                 expect(res.body).to.be.an('object');
                 expect(res.body.message).to.equal('Invalid Credentials');
                 expect(res.body.errors.comment).to.be.an('array')
@@ -142,6 +145,38 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             })
         })
     })
+      //getting Gif comments
+      
+      describe("it should return all gif comments",()=>{
+        it("Should return gif comments successfully",(done)=>{
+          chai.request(app)
+          .get(`/v1/gifs/${id}/comment`)
+          .set("Accept", "application/json")
+          .set("Authorization", "Bearer " + token)
+          .end((err,res)=> {
+            
+            
+            expect(res.body).to.be.an('object');
+            expect(res.body.status).to.equal('success')
+            done()
+          })
+        })
+      })
+      //deleteing gif comments
+      describe("it should delete gif comment",()=>{
+        it("Should successfully delete gif comment",(done)=>{
+          chai.request(app)
+          .delete(`/v1/gifs/${commentId}/comment`)
+          .set("Accept", "application/json")
+          .set("Authorization", "Bearer " + token)
+          .end((err,res)=> {
+            console.log(commentId)
+            expect(res.body).to.be.an('object');
+            expect(res.body.status).to.equal('success')
+            done()
+          })
+        })
+      })
         
         //delete gif
         
@@ -405,7 +440,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
             })
           })
         })
-
+        
         //article comment
         describe("Post should return successful v1/articles/<:articleId>/comment",()=>{
           it("should return return post successfull",(done)=>{
@@ -418,7 +453,7 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                   flagged: false
               })
               .end((err,res)=>{
-                                  
+                commentId = res.body.data.commentId        
                 expect(res.body).to.be.an('object');
                 expect(res.body.status).to.equal('success');
                 expect(res.body.data.comment).to.be.a('string')
@@ -441,6 +476,38 @@ describe("testing for gifs Post/Delete/Get", ()=>{
                 done()
             })
         })
+    })
+    //getting article comments
+    describe("it should return all article comments",()=>{
+      it("Should return article comments successfully",(done)=>{
+        chai.request(app)
+        .get(`/v1/articles/${articleId}/comment`)
+        .set("Accept", "application/json")
+        .set("Authorization", "Bearer " + token)
+        .end((err,res)=> {
+         // console.log(res.body)
+          expect(res.body).to.be.an('object');
+          expect(res.body.status).to.equal('success')
+          done()
+        })
+      })
+    })
+    
+    //delete article comments
+    describe("it should delete article comment",()=>{
+      it("Should return articles comments successfully",(done)=>{
+        chai.request(app)
+        .delete(`/v1/articles/${commentId}/comment`)
+        .set("Accept", "application/json")
+        .set("Authorization", "Bearer " + token)
+        .end((err,res)=> {
+          
+          
+          expect(res.body).to.be.an('object');
+          expect(res.body.status).to.equal('success')
+          done()
+        })
+      })
     })
     //delete an articles
     describe("to delete an articles '/v1/gifs/${id}",()=>{

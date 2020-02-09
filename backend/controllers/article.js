@@ -19,6 +19,9 @@ class Articles {
       static User() {
         return new Model('users');
       }
+      static comment() {
+        return new Model('article_comment');
+      }
 
     static async uploadArticle(req,res){
         try{
@@ -225,6 +228,7 @@ class Articles {
   
   
          await Articles.model().delete('article_id=$1', [articleId]);
+         await Articles.comment().delete('article_id=$1', [articleId]);
         return res.status(200).json({
           status: "success",
           data: {

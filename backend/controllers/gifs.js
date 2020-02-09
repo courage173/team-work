@@ -21,6 +21,9 @@ class Gifs {
     static User() {
       return new Model('users');
     }
+    static comment() {
+      return new Model('gif_comment');
+    }
 
     static async uploadGif(req,res){
         try{
@@ -107,6 +110,7 @@ class Gifs {
       await cloudinary.v2.uploader.destroy(row[0].public_id);
 
        await Gifs.model().delete('gif_id=$1', [gif_id]);
+       await Gifs.comment().delete('gif_id=$1', [gif_id]);
       return res.status(200).json({
         status: "success",
         data: {
