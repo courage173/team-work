@@ -13,7 +13,7 @@ const fileUpload = require("express-fileupload");
 
 
 const {uploadGif, deleteGifs,getAllGifs,getOneGif} = Gifs
-const {createGifComment} = GifComment
+const {createGifComment,getGifComment, deleteGifComment} = GifComment
 
 
 router.use(
@@ -34,6 +34,8 @@ router.get('/:id', getOneGif)
 
 //gif comments
 router.post('/:gifId/comment',verifyToken,validateComments,createGifComment)
+router.get('/:gifId/comment',verifyToken,getGifComment)
+router.delete('/:commentId/comment',verifyToken, deleteGifComment)
 //Categories routes
 
 

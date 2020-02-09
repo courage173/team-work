@@ -53,6 +53,8 @@ CREATE TABLE gif (
         flagged BOOLEAN NOT NULL,
         created_by varchar NOT NULL,
         user_id INTEGER NOT NULL,
+        image_ul character varying,
+        name  character varying,
         PRIMARY KEY (comment_id),
         FOREIGN KEY (user_id) 
         REFERENCES users (id)
@@ -91,7 +93,9 @@ CREATE TABLE gif (
         flagged boolean DEFAULT false NOT NULL,
         user_id integer NOT NULL,
         created_by character varying NOT NULL,
-        created_on time with time zone NOT NULL,     
+        created_on time with time zone NOT NULL, 
+        image_ul character varying,
+        name  character varying,
         PRIMARY KEY (comment_id),
         FOREIGN KEY (user_id) 
         REFERENCES users (id)
