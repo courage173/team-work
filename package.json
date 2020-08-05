@@ -44,7 +44,7 @@
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.6-alpha.6",
+    "express-fileupload": "^1.1.9",
     "form-data": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.2",
